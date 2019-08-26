@@ -1,6 +1,14 @@
 
 # *Paradigms of Artificial Intelligence Programming (pt-br)* 
 
+![PAIP](paip-cover.gif)
+
+Este é um repositório de código aberto é uma versão no português (pt-br) do livro *Paradigms of Artificial
+Intelligence Programming: Case Studies in Common Lisp* by Peter Norvig (1992), e o código contido nele. 
+Os direitos autorais foram revertidos para o autor, que o compartilhou aqui sob licença do MIT.
+
+Você pode também querer conhecer o repositório do [livro oficial em inglês](https://github.com/norvig/paip-lisp).
+
 ## <span style="color:red">ATENÇÃO!</span>
 
 Esse repositório está em desenvolvimento, algumas partes podem ainda não estarem traduzidas, ou inexistentes comparado
@@ -10,14 +18,6 @@ O seu tradutor [@noloop](https://github.com/noloop) está estudando inglẽs, ap
 e também praticar o inglês ao mesmo tempo, caso perceba algo de errado, não deixe de me alertar abrindo um
 [novo problema](https://github.com/noloop/paip-lisp-pt-br/issues), você também pode abrir um problema se deseja ajudar com
 este repositório.
-
-![PAIP](paip-cover.gif)
-
-Este é um repositório de código aberto é uma versão no português (pt-br) do livro *Paradigms of Artificial
-Intelligence Programming: Case Studies in Common Lisp* by Peter Norvig (1992), e o código contido nele. 
-Os direitos autorais foram revertidos para o autor, que o compartilhou aqui sob licença do MIT.
-
-Você pode também querer conhecer o repositório do [livro oficial em inglês](https://github.com/norvig/paip-lisp).
 
 ## O Livro
 
