@@ -1,10 +1,5 @@
 # Prefácio
 
-> **paradigm** *n* **1** an example or pattern; *esp* an outstandingly clear or typical example. 
-> -*Longman's Dictionary of the English Language*, 1984
-
-Em português:
-
 > **paradigma** *n* **1** um exemplo ou padrão; *esp* um exemplo excepcionalmente claro ou típico.
 > -*Longman's Dicionário do idioma inglês*, 1984
 
@@ -21,8 +16,8 @@ Eles também são paradigmas de programas historicamente significativos de pesqu
 Assim como a educação em artes liberais inclui um curso nos "grandes livros" de uma cultura, este livro é, em um nível, um curso nos "grandes programas" que definem a cultura da IA.[1](#fnpreface-1)
 
 Em outro nível, este livro é um compêndio altamente técnico do conhecimento que você precisará para passar de um programador intermediário do Lisp para um especialista.
-As partes I e II foram projetadas para ajudar o novato a se atualizar, mas o iniciante completo pode ter dificuldade mesmo com este material.
-Felizmente, você poderá ver minhas recomendações no tópico *Como usar este livro*.
+As partes I e II foram projetadas para ajudar o novato a se atualizar, mas um completo iniciante pode ter dificuldade mesmo com este material.
+Felizmente, você poderá ver minhas recomendações no tópico **Como usar este livro**.
 
 Com muita freqüência, o ensino da programação de computadores consiste em explicar a sintaxe do idioma escolhido, mostrar ao aluno um programa de 10 linhas e depois pedir ao aluno que escreva programas.
 Neste livro, adotamos a abordagem de que a melhor maneira de aprender a escrever é ler (e, inversamente, uma boa maneira de melhorar as habilidades de leitura é escrever).
@@ -54,7 +49,7 @@ Neste livro, usamos a versão chamada Common Lisp, que é o padrão mais amplame
 Lisp foi escolhido por três razões.
 
 Primeiro, o Lisp é a linguagem mais popular para a programação de IA, principalmente nos Estados Unidos.
-Se você estiver aprendendo um idioma, pode ser um com uma literatura crescente, em vez de uma língua morta.
+Se você estiver aprendendo um idioma, melhor ser uma linguagem crescente, em vez de uma língua morta.
 
 Segundo, o Lisp facilita a captura de generalizações relevantes na definição de novos objetos.
 Em particular, o Lisp facilita a definição de novos idiomas, especialmente direcionados ao problema em questão.
@@ -80,7 +75,7 @@ O esquema é apresentado nos [capítulos 22](chapter22) e [23](chapter23).
 Outros dialetos do Lisp, como Franz Lisp, MacLisp, InterLisp, ZetaLisp e Standard Lisp agora são considerados obsoletos.
 O único novo dialeto do Lisp proposto recentemente é o EuLisp, o Lisp europeu.
 Alguns dialetos do Lisp vivem como idiomas de extensão incorporados.
-Por exemplo, o editor de texto do Gnu Emacs usa elisp e o pacote de design auxiliado por computador do AutoCad usa o AutoLisp, um derivado do Xlisp.
+Por exemplo, o editor de texto do GNU Emacs usa elisp e o pacote de design auxiliado por computador do AutoCad usa o AutoLisp, um derivado do Xlisp.
 No futuro, é provável que o Scheme se torne uma linguagem de extensão popular, pois é pequena, mas poderosa e possui uma definição padrão oficialmente sancionada.
 
 Existe um mito de que o Lisp (e o Prolog) são linguagens de "propósito especial", enquanto idiomas como Pascal e C são "de propósito geral". Na verdade, apenas o contrário é verdadeiro.
@@ -134,14 +129,14 @@ Ele pode ser lido na primeira leitura e usado como referência sempre que uma fu
 
 A Parte I foi mantida intencionalmente breve, para que haja mais espaço para a apresentação de programas reais de IA.
 Infelizmente, isso significa que outro texto ou livro de referência (ou ajuda on-line) pode ser necessário para esclarecer alguns dos recursos mais esotéricos do idioma.
-Você pode encontrar minhas recomendações para textos no tópico mais abaixo *Como usar este livro*.
+Você pode encontrar minhas recomendações para textos no tópico mais abaixo **Como usar este livro**.
 
 O leitor também pode consultar o [capítulo 25](chapter25), que oferece algumas dicas de depuração e solução de problemas.
 
 A **Parte II** abrange quatro programas iniciais de IA que usam técnicas de correspondência de padrões baseadas em regras.
 Iniciando com versões relativamente simples dos programas que ao serem melhorados vão se tornando programas mais complexos, o leitor pode gradualmente adquirir habilidades de programação cada vez mais avançadas.
 
-[Capítulo 4](chapter4) apresenta uma reconstrução do GPS, o General Problem Solver.
+[Capítulo 4](chapter4) apresenta uma reconstrução do GPS, o General Problem Solver (Solucionador Geral de Problemas).
 A implementação segue a abordagem STRIPS.
 
 [Capítulo 5](chapter5) descreve o ELIZA, um programa que imita o diálogo humano.
@@ -159,8 +154,8 @@ O leitor que domina o material desta parte pode ser considerado um programador a
 O [Capítulo 10](chapter10) aborda questões de eficiência de nível inferior, como usar declarações, evitar a geração de lixo e escolher a estrutura de dados correta.
 
 [Capítulo 11](chapter11) apresenta a linguagem Prolog.
-O objetivo é duplo: mostrar como escrever um intérprete para outro idioma e introduzir os recursos importantes do Prolog, para que possam ser usados quando apropriado.
-[Capítulo 12](chapter12) mostra como um compilador para o Prolog pode ser 20 a 200 vezes mais rápido que o intérprete.
+O objetivo é duplo: mostrar como escrever um interpretador para outro idioma e introduzir os recursos importantes do Prolog, para que possam ser usados quando apropriado.
+[Capítulo 12](chapter12) mostra como um compilador para o Prolog pode ser 20 a 200 vezes mais rápido que o interpretador.
 
 [Capítulo 13](chapter13) apresenta a programação orientada a objetos em geral, depois explora o Common Lisp Object System (CLOS).
 
@@ -191,11 +186,11 @@ Os problemas de passar de uma idéia simples para um programa realista e abrange
 **Parte V** inclui material periférico à IA, mas importante para qualquer programador Lisp sério.
 
 [Capítulo 22](chapter22) apresenta o dialeto Scheme de Lisp.
-Um simples intérprete de Scheme é desenvolvido, um intérprete recursivo de cauda (tail-recursive interpreter), um intérprete que manipula explicitamente as continuações e suporta `call/cc`.
+Um simples interpretador de Scheme é desenvolvido, um interpretador recursivo de cauda (tail-recursive interpreter), um interpretador que manipula explicitamente as continuações e suporta `call/cc`.
 [Capítulo 23](chapter23) apresenta um compilador de Scheme.
 
 [Capítulo 24](chapter24) apresenta os recursos exclusivos do Common Lisp do American National Standards Institute (ANSI).
-Isso inclui a macro `loop`, bem como tratamento de erros, impressão bonita, séries e seqüências, e o recurso de pacotes.
+Isso inclui a macro `loop`, bem como tratamento de erros, impressão bonita, séries e seqüências, e o recurso de pacotes (package).
 
 [Capítulo 25](chapter25) é um guia para solução de problemas e depuração de programas Lisp.
 
@@ -282,7 +277,7 @@ Contém 150 páginas da visão geral do Lisp, seguidas de uma discussão avança
 * *AI in Practice: Examples in Pop-11* de Allan Ramsey e Rosalind Barrett.
 Implementações avançadas e de alta qualidade de cinco programas de IA, infelizmente usando um idioma que não ganhou popularidade.
 
-O texto atual combina as virtudes das duas últimas entradas: apresenta os programas reais de IA e as ferramentas necessárias para construí-los.
+Este livro combina as virtudes das duas últimas entradas: apresenta os programas reais de IA e as ferramentas necessárias para construí-los.
 Além disso, a apresentação é incremental, com versões simples apresentadas primeiro por questões de clareza, seguidas por versões mais sofisticadas para completude.
 
 ## Uma nota sobre exercícios
@@ -338,4 +333,4 @@ Finalmente, obrigado a Mike Morgan e Yonie Overton por supervisionarem a produç
 ----------------------
 
  <a id="fnpreface-1"></a>
-[1](#tfnpreface-1) Isso não implica que os programas escolhidos sejam os melhores de todos os programas de IA - apenas que eles estão representativos.
+[1](#tfnpreface-1) Isso não implica que os programas escolhidos sejam os melhores de todos os programas de IA - apenas que eles são representativos.
