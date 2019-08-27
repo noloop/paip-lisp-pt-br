@@ -127,4 +127,4 @@ Há quatro pontos importantes a serem feitos sobre os símbolos:
 <a id="fn01-2"></a>
 [2](#tfn01-2) A variável `*print-case*` controla como os símbolos serão impressos. Por padrão, o valor dessa variável é `:upcase`, mas pode ser alterado para `:downcase` ou `:capitalize.`
 
-## <span style="color:red">INCOMPLETO!!!</span>
+# INCOMPLETO!!!
