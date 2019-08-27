@@ -64,7 +64,7 @@ O livro também está disponivel nesses formatos:
   * 24  [ANSI Common Lisp](TODO.md)
   * 25  [Troubleshooting](TODO.md)
   
-PAIP Lisp na TV [TV](https://norvig.com/paip-tv.html). Veja também: [errata](https://norvig.com/paip-errata.html), [comentários](https://norvig.com/paip-comments.html), [retrospectiva](https://norvig.com/Lisp-retro.html).
+PAIP Lisp na [TV](https://norvig.com/paip-tv.html). Veja também: [errata](https://norvig.com/paip-errata.html), [comentários](https://norvig.com/paip-comments.html), [retrospectiva](https://norvig.com/Lisp-retro.html).
 
 ## Arquivos Lisp
 
