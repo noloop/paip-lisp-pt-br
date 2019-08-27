@@ -67,10 +67,10 @@ Deve-se mencionar que na Europa e no Japão, o Prolog tem sido tão popular quan
 O Prolog compartilha a maioria das vantagens da Lisp em termos de flexibilidade e concisão.
 Recentemente, a Lisp ganhou popularidade em todo o mundo, e o Prolog está se tornando mais conhecido nos Estados Unidos.
 Como resultado, o trabalhador médio de IA atualmente é provavelmente bilíngue.
-Este livro apresenta as idéias principais por trás do Prolog nos [capítulos 11](capitulo11) e [12](capitulo12) e usa essas idéias nos capítulos seguintes, particularmente [20](capitulo20) e [21](capitulo21).
+Este livro apresenta as idéias principais por trás do Prolog nos [capítulos 11](chapter11) e [12](chapter12) e usa essas idéias nos capítulos seguintes, particularmente [20](chapter20) e [21](chapter21).
 
 O dialeto do Lisp, conhecido como Scheme, também está ganhando popularidade, mas principalmente para ensinar e experimentar o design e as técnicas da linguagem de programação, e não tanto para escrever grandes programas de IA.
-O esquema é apresentado nos [capítulos 22](capitulo22) e [23](capitulo 23).
+O esquema é apresentado nos [capítulos 22](chapter22) e [23](chapter23).
 
 Outros dialetos do Lisp, como Franz Lisp, MacLisp, InterLisp, ZetaLisp e Standard Lisp agora são considerados obsoletos.
 O único novo dialeto do Lisp proposto recentemente é o EuLisp, o Lisp europeu.
@@ -118,81 +118,81 @@ Este livro está organizado em cinco partes.
 
 A **Parte I** apresenta a linguagem de programação Common Lisp.
 
-[Capítulo 1](capitulo1) fornece uma rápida introdução por meio de pequenos exemplos que demonstram os novos recursos do Lisp.
+[Capítulo 1](chapter1) fornece uma rápida introdução por meio de pequenos exemplos que demonstram os novos recursos do Lisp.
 Pode ser pulado ou visto rapidamente com segurança pelo programador experiente.
 
-[Capítulo 2](capitulo2) é um exemplo mais extenso, mostrando como as primitivas Lisp podem ser reunidas para formar um programa.
+[Capítulo 2](chapter2) é um exemplo mais extenso, mostrando como as primitivas Lisp podem ser reunidas para formar um programa.
 Ele deve ser estudado cuidadosamente pelo iniciante, e mesmo o programador experiente vai querer examiná-lo para ter uma ideia do meu estilo de programação.
 
-[Capítulo 3](capitulo3) fornece uma visão geral das primitivas do Lisp.
+[Capítulo 3](chapter3) fornece uma visão geral das primitivas do Lisp.
 Ele pode ser lido na primeira leitura e usado como referência sempre que uma função desconhecida for mencionada no texto.
 
 A Parte I foi mantida intencionalmente breve, para que haja mais espaço para a apresentação de programas reais de IA.
 Infelizmente, isso significa que outro texto ou livro de referência (ou ajuda on-line) pode ser necessário para esclarecer alguns dos recursos mais esotéricos do idioma.
 Você pode encontrar minhas recomendações para textos no tópico mais abaixo *Como usar este livro*.
 
-O leitor também pode consultar o [capítulo 25](capitulo25), que oferece algumas dicas de depuração e solução de problemas.
+O leitor também pode consultar o [capítulo 25](chapter25), que oferece algumas dicas de depuração e solução de problemas.
 
 A **Parte II** abrange quatro programas iniciais de IA que usam técnicas de correspondência de padrões baseadas em regras.
 Iniciando com versões relativamente simples dos programas que ao serem melhorados vão se tornando programas mais complexos, o leitor pode gradualmente adquirir habilidades de programação cada vez mais avançadas.
 
-[Capítulo 4](capitulo4) apresenta uma reconstrução do GPS, o General Problem Solver.
+[Capítulo 4](chapter4) apresenta uma reconstrução do GPS, o General Problem Solver.
 A implementação segue a abordagem STRIPS.
 
-[Capítulo 5](capitulo5) descreve o ELIZA, um programa que imita o diálogo humano.
+[Capítulo 5](chapter5) descreve o ELIZA, um programa que imita o diálogo humano.
 Isto é seguido por um capítulo que generaliza algumas das técnicas usadas no GPS e no ELIZA e as disponibiliza como ferramentas para uso em programas subseqüentes.
 
-[Capítulo 7](capitulo7) abrange o STUDENT, um programa que resolve problemas de palavras de álgebra no ensino médio.
+[Capítulo 7](chapter7) abrange o STUDENT, um programa que resolve problemas de palavras de álgebra no ensino médio.
 
-[Capítulo 8](capitulo8) desenvolve um pequeno subconjunto do programa MACSYMA para fazer álgebra simbólica, incluindo cálculo diferencial e integral.
+[Capítulo 8](chapter8) desenvolve um pequeno subconjunto do programa MACSYMA para fazer álgebra simbólica, incluindo cálculo diferencial e integral.
 Pode ser ignorado por aqueles que fogem da matemática pesada.
 
 A **Parte III** desvia da AI por um momento para apresentar algumas ferramentas gerais para uma programação mais eficiente.
 O leitor que domina o material desta parte pode ser considerado um programador avançado do Lisp.
 
-[Capítulo 9](capitulo9) é um estudo detalhado das técnicas de eficiência, concentrando-se no armazenamento em cache, indexação (indexing), compilação (compilation) e atraso (delaying) na computação.
-O [Capítulo 10](capitulo10) aborda questões de eficiência de nível inferior, como usar declarações, evitar a geração de lixo e escolher a estrutura de dados correta.
+[Capítulo 9](chapter9) é um estudo detalhado das técnicas de eficiência, concentrando-se no armazenamento em cache, indexação (indexing), compilação (compilation) e atraso (delaying) na computação.
+O [Capítulo 10](chapter10) aborda questões de eficiência de nível inferior, como usar declarações, evitar a geração de lixo e escolher a estrutura de dados correta.
 
-[Capítulo 11](capitulo11) apresenta a linguagem Prolog.
+[Capítulo 11](chapter11) apresenta a linguagem Prolog.
 O objetivo é duplo: mostrar como escrever um intérprete para outro idioma e introduzir os recursos importantes do Prolog, para que possam ser usados quando apropriado.
-[Capítulo 12](capitulo12) mostra como um compilador para o Prolog pode ser 20 a 200 vezes mais rápido que o intérprete.
+[Capítulo 12](chapter12) mostra como um compilador para o Prolog pode ser 20 a 200 vezes mais rápido que o intérprete.
 
-[Capítulo 13](capitulo13) apresenta a programação orientada a objetos em geral, depois explora o Common Lisp Object System (CLOS).
+[Capítulo 13](chapter13) apresenta a programação orientada a objetos em geral, depois explora o Common Lisp Object System (CLOS).
 
-[Capítulo 14](capitulo14) discute as vantagens e limitações da programação orientada a lógica e orientada a objetos e desenvolve um formalismo de representação do conhecimento usando todas as técnicas da parte III.
+[Capítulo 14](chapter14) discute as vantagens e limitações da programação orientada a lógica e orientada a objetos e desenvolve um formalismo de representação do conhecimento usando todas as técnicas da parte III.
 
 A **Parte IV** abrange alguns programas avançados de IA.
 
-[Capítulo 15](capitulo15) usa as técnicas da parte III para criar uma implementação muito mais eficiente do MACSYMA. Ele usa a idéia de uma forma canônica e substitui a abordagem de regra de reescrita muito geral por uma série de funções mais específicas.
+[Capítulo 15](chapter15) usa as técnicas da parte III para criar uma implementação muito mais eficiente do MACSYMA. Ele usa a idéia de uma forma canônica e substitui a abordagem de regra de reescrita muito geral por uma série de funções mais específicas.
 
-[Capítulo 16](capitulo16) abrange o shell do sistema especialista EMYCIN, um sistema baseado em regras de encadeamento reverso baseado em fatores de certeza.
+[Capítulo 16](chapter16) abrange o shell do sistema especialista EMYCIN, um sistema baseado em regras de encadeamento reverso baseado em fatores de certeza.
 O sistema médico especialista MYCIN também é coberto brevemente.
 
-[Capítulo 17](capitulo17) aborda o algoritmo de marcação de linha Waltz para poliedros (usando rótulos Huffman-Clowes).
+[Capítulo 17](chapter17) aborda o algoritmo de marcação de linha Waltz para poliedros (usando rótulos Huffman-Clowes).
 Diferentes abordagens para propagação de restrição e retorno são discutidas.
 
-[Capítulo 18](capitulo18) apresenta um programa que reproduz um excelente jogo de Othello.
+[Capítulo 18](chapter18) apresenta um programa que reproduz um excelente jogo de Othello.
 A técnica usada, a pesquisa alfa-beta, é apropriada para uma ampla variedade de jogos para duas pessoas.
 
-[Capítulo 19](capitulo19) é uma introdução ao processamento de linguagem natural.
+[Capítulo 19](chapter19) é uma introdução ao processamento de linguagem natural.
 Ele abrange gramática livre de contexto, análise de cima para baixo e de baixo para cima, análise de gráficos e algumas interpretações e preferências semânticas.
 
-[Capítulo 20](capitulo20) estende a cobertura linguística do capítulo anterior e introduz gramáticas lógicas, usando o compilador Prolog desenvolvido no [capítulo 11](capitulo11).
+[Capítulo 20](chapter20) estende a cobertura linguística do capítulo anterior e introduz gramáticas lógicas, usando o compilador Prolog desenvolvido no [capítulo 11](chapter11).
 
-[Capítulo 21](capitulo21) é uma gramática bastante abrangente do inglês usando o formalismo da gramática lógica.
+[Capítulo 21](chapter21) é uma gramática bastante abrangente do inglês usando o formalismo da gramática lógica.
 Os problemas de passar de uma idéia simples para um programa realista e abrangente são discutidos.
 
 
 **Parte V** inclui material periférico à IA, mas importante para qualquer programador Lisp sério.
 
-[Capítulo 22](capitulo22) apresenta o dialeto Scheme de Lisp.
+[Capítulo 22](chapter22) apresenta o dialeto Scheme de Lisp.
 Um simples intérprete de Scheme é desenvolvido, um intérprete recursivo de cauda (tail-recursive interpreter), um intérprete que manipula explicitamente as continuações e suporta `call/cc`.
-[Capítulo 23](capitulo23) apresenta um compilador de Scheme.
+[Capítulo 23](chapter23) apresenta um compilador de Scheme.
 
-[Capítulo 24](capitulo24) apresenta os recursos exclusivos do Common Lisp do American National Standards Institute (ANSI).
+[Capítulo 24](chapter24) apresenta os recursos exclusivos do Common Lisp do American National Standards Institute (ANSI).
 Isso inclui a macro `loop`, bem como tratamento de erros, impressão bonita, séries e seqüências, e o recurso de pacotes.
 
-[Capítulo 25](capitulo25) é um guia para solução de problemas e depuração de programas Lisp.
+[Capítulo 25](chapter25) é um guia para solução de problemas e depuração de programas Lisp.
 
 A bibliografia lista mais de 200 fontes, e há um índice abrangente.
 Além disso, o apêndice fornece um diretório de programas Lisp disponíveis ao público.
@@ -207,10 +207,10 @@ Existem vários caminhos recomendados no livro:
 * *Em um curso avançado de programação de IA:* Concentre-se nas partes I, II e IV, pulando os capítulos de menor interesse e adicionando a maior parte da parte III, conforme o tempo permitir.
 
 * *Em um curso avançado de idiomas de programação:* Concentre-se nas partes I e V, com as seleções da parte III.
-Cubra os capítulos [11](capitulo11) e [13](capitulo13) se material semelhante não for apresentado com outro texto.
+Cubra os capítulos [11](chapter11) e [13](chapter13) se material semelhante não for apresentado com outro texto.
 
 * *Para o programador profissional de Lisp:* Leia o máximo possível do livro e consulte-o com frequência.
-A parte III e [capítulo 25](capitulo25) são particularmente importantes.
+A parte III e [capítulo 25](chapter25) são particularmente importantes.
 
 ## Textos complementares e livros de referência
 
@@ -315,11 +315,11 @@ Loeffler (MCC), George Luger (New Mexico), Rob MacLachlan (CMU), Barry Margolin 
 Ressler, Robert S.
 Rist (University of Technology, Sydney), Paul Snively (Apple), Peter Van Roy (Berkeley), David Gumby Wallace (Cygnus), and Jeff Wu (Colorado).
 
-Sam Dooley e Eric Wefald escreveram programas para tocar Otelo sem os quais eu não teria escrito [capítulo 18](capitulo18).
+Sam Dooley e Eric Wefald escreveram programas para tocar Otelo sem os quais eu não teria escrito [capítulo 18](chapter18).
 Eric também me mostrou as citações de Aristóteles na análise de meios-fins.
 Tragicamente, Eric morreu em agosto de 1989.
 Ele sente muita falta de seus amigos e colegas.
-Richard Fateman fez sugestões para o [capítulo 8](capitulo8), me convenceu a escrever [capítulo 15](capitulo15) e, com a ajuda de Peter Klier, escreveu um programa substancial a partir do qual adaptei algum código para esse capítulo.
+Richard Fateman fez sugestões para o [capítulo 8](chapter8), me convenceu a escrever [capítulo 15](chapter15) e, com a ajuda de Peter Klier, escreveu um programa substancial a partir do qual adaptei algum código para esse capítulo.
 Charley Cox (Franz Inc.), Jamie Zawinski (Lucid Inc.) e Paul Fuqua (Texas Instruments) explicaram o funcionamento interno dos compiladores de suas respectivas empresas.
 Mike Harrison, Paul Hilfinger, Marc Luria, Ethan Munson e Stephan Slade ajudaram com o LATEX.
 Narciso Jarimillo testou todo o código e o separou nos arquivos que estão disponíveis para o leitor.

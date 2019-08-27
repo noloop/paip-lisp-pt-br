@@ -25,16 +25,16 @@ O livro também está disponivel nesses formatos:
 
 * pdf: [TODO](TODO.md) 
 * text: [TODO](TODO.md) 
-* epub: [TODO](TODO.md) 
-* e `capitulo?.md` markdown arquivos:
+* epub: [TODO](TODO.md)
+* html: [noloop.github.io/paip-lisp-pt-br](https://noloop.github.io/paip-lisp-pt-br)
 
 # Índice
 
 - **Paradigms of Artificial Intelligence Programming (pt-br)**
   * [Front matter](docs/frontmatter.md)
-  * [Prefácio](docs/prefacio.md)
+  * [Prefácio](docs/preface.md)
 - **Parte I:  Introdução ao Common Lisp**
-  * 1  [Introdução ao Lisp](docs/capitulo1.md)
+  * 1  [Introdução ao Lisp](docs/chapter1.md)
   * 2  [A Simple Lisp Program](TODO.md)
   * 3 [Overview of Lisp](TODO.md)
 - **Part II: Early AI Programs**
