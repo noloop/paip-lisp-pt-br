@@ -1,7 +1,12 @@
 # Prefácio
 
-> **paradigm** *n* **1** an example or pattern; *esp* an outstandingly clear or typical example.  
+> **paradigm** *n* **1** an example or pattern; *esp* an outstandingly clear or typical example. 
 > -*Longman's Dictionary of the English Language*, 1984
+
+Em português:
+
+> **paradigma** *n* **1** um exemplo ou padrão; *esp* um exemplo excepcionalmente claro ou típico.
+> -*Longman's Dicionário do idioma inglês*, 1984
 
 Este livro trata de três tópicos relacionados: o campo de inteligência artificial, ou IA, a habilidade de programação de computadores,
 e a linguagem de programação Commmon Lisp.
