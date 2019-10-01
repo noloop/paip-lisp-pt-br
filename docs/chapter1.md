@@ -1,69 +1,129 @@
 # Capítulo 1
 
-## Introdução ao Lisp
+## Introdução ao Lisp 
 
-> You think you know when you learn, are more sure when you can write, even more when you can teach, but certain when you can program. 
-> - Alan Perlis, Yale University computer scientist
-
-Em português:
-
->Você acha que sabe quando você aprende, tem mais certeza quando você pode escrever, ainda mais quando você pode ensinar, mas certo quando você pode programar.
+>Você acha que sabe quando você aprende, tem mais certeza quando você pode escrever, ainda mais quando você pode
+>ensinar, mas certo quando você pode programar.
 > - Alan Perlis, Cientista da computação da Universidade de Yale
 
-Este capítulo é para pessoas com pouca ou nenhuma experiência em Lisp. Leitores que sentem confiantes em sua habilidade de programação em Lisp, podem rapidamente dar uma olhada no capítulo ou ignorá-lo completamente. Este capítulo necessariamente se move rapidamente, então aqueles com pouca experiência em programação, ou qualquer leitor que ache este capítulo difícil, deve procurar um texto introdutório suplementar. Minhas recomendações estão no prefácio.
-Computadores permitem realizar computações. Um programa de processamento de palavras lida com palavras, enquanto uma calculadora lida com números, mas os princípios são os mesmos. Em ambos os casos, você fornece a entrada (no inglês:  input, no exemplo deste parágrafo seriam palavras ou números.) e especifica as operações (no inglês:  operations, como excluir uma palavra ou adicionar dois números) para produzir um resultado (no inglês: output ou results, um documento ou resultado de um cálculo).
+Este capítulo é para pessoas com pouca ou nenhuma experiência em Lisp. Leitores que sentem confiantes em sua habilidade
+de programação em Lisp, podem rapidamente dar uma olhada no capítulo ou ignorá-lo completamente. Este capítulo
+necessariamente se move rapidamente, então aqueles com pouca experiência em programação, ou qualquer leitor que ache
+este capítulo difícil, deve procurar um texto introdutório suplementar. Minhas recomendações estão no prefácio.
 
-Vamos nos referir a qualquer coisa que possa ser representada na memória de um computador como um objeto computacional (no inglês: computacional object), ou apenas um objeto (no inglês: object). Assim, palavras, parágrafos e números podem ser objetos. E como as operações (exclusão e adição) devem estar representadas em algum lugar da memória do computador, elas também são objetos.
-Normalmente, a distinção entre um “usuário” de computador e um “programador” de computador é que o usuário fornece novas entradas, ou dados (palavras ou números), enquanto o programador define novas operações, ou programas, e também novos tipos de dados. Todo objeto novo, seja um dado ou uma operação, deve ser definido em termos de objetos previamente definidos. A má notícia é que pode ser muito tedioso obter essas definições corretamente. A boa notícia e que cada novo objeto, pode, por sua vez, ser usado na definição de objetos futuros. Assim, mesmo programas complexos podem ser construídos a partir de objetos menores e mais simples. Este livro cobre uma série de problemas típicos de IA, mostrando como cada problema pode ser dividido em partes gerenciáveis, e também como cada peça pode ser descrita na linguagem de programação Common Lisp. O ideal é que os leitores aprendam o suficiente estudando esses exemplos para atacar novos problemas de IA com estilo, graça e sucesso.
+Computadores permitem realizar computações. Um programa de processamento de palavras lida com palavras, enquanto uma
+calculadora lida com números, mas os princípios são os mesmos. Em ambos os casos, você fornece a entrada (palavras ou
+números) e especifica as operações (como excluir uma palavra ou adicionar dois números) para produzir um resultado (um
+documento ou resultado de um cálculo).
 
-Vamos considerar um exemplo simples de uma computação: encontrar a soma de dois números , digamos, 2 e 2. Se tivéssemos uma calculadora à mão, digitaríamos “2 + 2 =” e veríamos a resposta exibida. Em uma calculadora usando a notação polonesa reversa (no ingês: reverse Polish notation), teríamos que digitar “2 2 +” para ver a mesma resposta. Em Lisp, assim como na calculadora, o usuário realiza um diálogo interativo com o computador, digitando uma expressão e vendo o computador imprimir o valor dessa expressão. Esse modo interativo é diferente de muitas outras linguagens de programação que oferecem apenas um modo de lote(no inglês: batch mode), em que um programa inteiro é compilado e executado antes que qualquer saída possa ser vista.
+Vamos nos referir a qualquer coisa que possa ser representada na memória de um computador como um objeto computacional,
+ou apenas um objeto. Assim, palavras, parágrafos e números podem ser objetos. E como as operações (exclusão e adição)
+devem estar representadas em algum lugar da memória do computador, elas também são objetos.
 
-Começamos uma calculadora de bolso, invertendo o botão liga/desliga (no inglês: on/off). O programa Lisp também deve ser iniciado, mas os detalhes variam de um computador para outro, então não posso explicar com o Lisp funcionará. Assumindo que conseguimos iniciar o Lisp, provalmente veremos algum tipo de prompt. No meu computador, o Lisp digita “`>`” para indicar que está pronto para aceitar a próxima computação. Então nos deparamos com uma tela que se parece com isso:
+Normalmente, a distinção entre um “usuário” de computador e um “programador” de computador é que o usuário fornece novas
+entradas, ou dados (palavras ou números), enquanto o programador define novas operações, ou programas, e também novos
+tipos de dados. Todo objeto novo, seja um dado ou uma operação, deve ser definido em termos de objetos previamente
+definidos. A má notícia é que pode ser muito tedioso obter essas definições corretamente. A boa notícia e que cada novo
+objeto, pode, por sua vez, ser usado na definição de objetos futuros. Assim, mesmo programas complexos podem ser
+construídos a partir de objetos menores e mais simples. Este livro cobre uma série de problemas típicos de IA, mostrando
+como cada problema pode ser dividido em partes gerenciáveis, e também como cada peça pode ser descrita na linguagem de
+programação Common Lisp. O ideal é que os leitores aprendam o suficiente estudando esses exemplos para atacar novos
+problemas de IA com estilo, graça e sucesso.
+
+Vamos considerar um exemplo simples de uma computação: encontrar a soma de dois números, digamos, 2 e 2. Se tivéssemos
+uma calculadora à mão, digitaríamos "2 + 2 =" e veríamos a resposta exibida. Em uma calculadora usando a notação
+polonesa reversa, teríamos que digitar “2 2 +” para ver a mesma resposta. Em Lisp, assim como na calculadora, o usuário
+realiza um diálogo interativo com o computador, digitando uma expressão e vendo o computador imprimir o valor dessa
+expressão. Esse modo interativo é diferente de muitas outras linguagens de programação que oferecem apenas um modo de
+lote, em que um programa inteiro é compilado e executado antes que qualquer saída possa ser vista.
+
+Em uma calculadora de bolso, nós começamos invertendo o botão liga/desliga. O programa Lisp também deve ser iniciado,
+mas os detalhes variam de um computador para outro, então não posso explicar como Lisp funcionará para você. Assumindo
+que conseguimos iniciar o Lisp, provavelmente veremos algum tipo de prompt. No meu computador, o Lisp digita “`>`” para
+indicar que está pronto para aceitar a próxima computação. Então nos deparamos com uma tela que se parece com isso:
 
 ```lisp
 > 
 ```
-Podemos agora digitar nossa computação e ver o resultado exibido. Acontece que a convenção de Lisp para expressões aritméticas é um pouco diferente: uma computação consiste em uma lista de parênteses com o nome da operação primeiro seguido por qualquer número de operandos ou argumentos. Isso é chamado de notação de prefixo(no inglês: prefix notation).
+
+Podemos agora digitar nossa computação e ver o resultado exibido. Acontece que a convenção de Lisp para expressões
+aritméticas é um pouco diferente: uma computação consiste em uma lista de parênteses com o nome da operação primeiro
+seguido por qualquer número de operandos, ou argumentos. Isso é chamado de notação de prefixo.
 
 ```lisp
 > (+ 2 2)
 4
 > 
 ```
-Vemos que Lisp imprimiu a resposta 4, e depois outro prompt ">", para indicar que está pronto para o próximo cálculo. Ao longo deste livro, todas as expressões Lisp serão exibidas na fonte `typewriter`. O texto na mesma linha do primeiro prompt ">" é digitado pelo usuário e o texto seguinte é impresso pelo computador. Normalmente, a entrada digitada(input) pelo programador estará em letras `lowercase`, enquanto a saida(output) que é impressa pelo computador, estará em letras `UPPERCASE`. Claro, com símbolos como + e 4, não há diferença.
 
-Para economizar espaço na página, a saída será mostrada às vezes na mesma linha da entrada, separada por uma seta (=>), que pode ser lida como "avavaliada como" (no inglês: evaluates to), e também pode ser considerada como return ou ENTER que o usuário pressiona para completar a entrada(input):
+Vemos que Lisp imprimiu a resposta 4, e depois outro prompt ">", para indicar que está pronto para o próximo cálculo. Ao
+longo deste livro, todas as expressões Lisp serão exibidas na fonte `typewriter`. O texto na mesma linha do primeiro
+prompt ">" é digitado pelo usuário e o texto seguinte é impresso pelo computador. Normalmente, a entrada digitada pelo
+programador estará em letras `lowercase`, enquanto a saída que é impressa pelo computador, estará em letras
+`UPPERCASE`. Claro, com símbolos como + e 4, não há diferença.
+
+Para economizar espaço na página, a saída será mostrada às vezes na mesma linha da entrada, separada por uma seta `=>`,
+que pode ser lida como "avaliada para", e também pode ser considerada como return ou ENTER que o usuário pressiona para
+completar a entrada:
 
 ```lisp
 > (+ 2 2) => 4
 ```
-Uma vantagem da notação de prefixo entre parênteses, é que os parênteses marcam claramente o início e o fim de uma expressão. Se quisermos, podermfornecer mais de dois argumentos para `+`, e ainda adicionar todos eles:
+
+Uma vantagem da notação de prefixo entre parênteses, é que os parênteses marcam claramente o início e o fim de uma
+expressão. Se quisermos, poderíamos fornecer mais de dois argumentos para `+`, e ainda adicionar todos eles:
 
 ```lisp
 > (+ 1 2 3 4 5 6 7 8 9 10) => 55 
 ```
+
 Desta vez tentamos (9000 + 900 + 90 + 9) - (5000 + 500 + 50 + 5):
 
 ```lisp
 > (- (+ 9000  900  90  9 ) (+ 5000  500  50  5 )) => 4444
 ```
-Este exemplo mostra que as expressões podem ser aninhadas. Os argumentos para a função `-` são listas de parênteses(no inglês: parenthesized lists), enquanto os argumentos para cada função `+` são atómos (no inglês: atoms). A notação de Lisp pode parecer incomum em comparação à notação matemática padrão, mas há vantagens nessa notação; como as expressões de Lisp podem consistir de uma função seguida por qualquer número de argumentos, não precisamos continuar repetindo `+`, mais importante que a notação é a regra para avaliação(no inglês: evaluation). Em Lisp, as listas são avaliadas primeiro avaliando todos os argumentos, e em seguida, aplciando a função ao argumentos, calculando assim o resultado. Essa regra é muito mais simples que a regra para avaliar expressões matemáticas normais, onde há muitas convenções a serem lembradas, como fazer multiplicações e divisões antes de somas e diferenças. Veremos abaixo que a regra real de avaliação Lisp é uma pouco mais complicada, mas não muito.
 
-Às vezes, os programadores que estão familiarizados com outras linguagens têm preconceitos que dificultam o aprendizado de Lisp. Para eles, vale a pena destacar três pontos aqui. Primeiro, muitas outras linguagens fazem uma distinção entre declarações(statements) e expressões(expressions). Uma expressão, como `2 + 2`, tem um valor, mas não tem uma declaração, como `x = 2 + 2`. As declarações têm efeitos(effects), mas não retornam valores. Em Lisp, não existe tal distinção: toda expressão retorna um valor. É verdade que algumas expressões têm efeitos, mas mesmo essas expressões também retornam valore(values).
+Este exemplo mostra que as expressões podem ser aninhadas. Os argumentos para a função `-` são listas de parênteses,
+enquanto os argumentos para cada função `+` são átomos. A notação de Lisp pode parecer incomum em comparação à notação
+matemática padrão, mas há vantagens nessa notação; como as expressões de Lisp podem consistir de uma função seguida por
+qualquer número de argumentos, não precisamos continuar repetindo `+`, mais importante que a notação é a regra para
+avaliação. Em Lisp, as listas são avaliadas primeiro avaliando todos os argumentos, e em seguida, aplicando a função ao
+argumentos, calculando assim o resultado. Essa regra é muito mais simples que a regra para avaliar expressões
+matemáticas normais, onde há muitas convenções a serem lembradas, como fazer multiplicações e divisões antes de somas e
+diferenças. Entretanto, veremos abaixo que a regra real de avaliação Lisp é uma pouco mais complicada, mas não muito.
 
-Em segundo lugar, as regras lexicais do Lisp são muito mais simples do que as regras de outras linguagens. Em particular, há menos caracteres de pontuação: apenas parênteses, marcas de aspas(quote marks, podem ser simples, dupla ou invertida), espaços(spaces), e a vírgula(comma), quais servem para separar simbolos(symbols) um do outro. Assim, enquanto a declaração `y=a*x+3` é analizada como sete tokens separados em outroas linguagens, em Lisp ela seria tratada como um único símbolo. Para obter uma lista de tokens, teríamos que inserir espaços: `(y = a * x + 3)`[1](#fn01-1)
+Às vezes, os programadores que estão familiarizados com outras linguagens têm preconceitos que dificultam o aprendizado
+de Lisp. Para eles, vale a pena destacar três pontos aqui. Primeiro, muitas outras linguagens fazem uma distinção entre
+declarações e expressões. Uma expressão, como `2 + 2`, tem um valor, mas não tem uma declaração, como `x = 2 + 2`. As
+declarações têm efeitos, mas não retornam valores. Em Lisp, não existe tal distinção: toda expressão retorna um valor. É
+verdade que algumas expressões têm efeitos, mas mesmo essas expressões também retornam valores.
 
-Terceiro, enquanto muitas linguagens usam ponto e vírgula para demilitar instruções, o Lisp não precisa de ponto e vírgula, já que as expressões são demilitadas por parênteses. O Lisp escolhe usar ponto e vírgula para outro propósito: marcar o início de um comentário, que dura até o final da linha:
+Em segundo lugar, as regras lexicais do Lisp são muito mais simples do que as regras de outras linguagens. Em
+particular, há menos caracteres de pontuação: apenas parênteses, marcas de aspas (podem ser simples, dupla ou
+invertida), espaços, e a vírgula, quais servem para separar símbolos um do outro. Assim, enquanto a declaração `y=a*x+3`
+é analisada como sete tokens separados em outras linguagens, em Lisp ela seria tratada como um único símbolo. Para obter
+uma lista de tokens, teríamos que inserir espaços: `(y = a * x + 3)`[1](#fn01-1)
+
+Terceiro, enquanto muitas linguagens usam ponto e vírgula para demilitar instruções, o Lisp não precisa de ponto e
+vírgula, já que as expressões são delimitadas por parênteses. O Lisp escolhe usar ponto e vírgula para outro propósito:
+marcar o início de um comentário, que dura até o final da linha:
 
 ```lisp
-> (+ 2 2) ; este é um comentário 
+> (+ 2 2) ;  este é um comentário 
 4
 ```
+
 ## Computação Simbólica
 
-Tudo o que fizemos até agora foi manipular números da mesma maneira que uma simples calculadora de bolso faria, Lisp é mais útil que uma calculadora por dois motivos principais. Primeiro, ele nos permite manipular objetos além de números e, segundo, permite definir novos objetos que podem ser úteis em cálculcos subsequentes. vamos examinar essas duas propriedades importantes por sua vez.
+Tudo o que fizemos até agora foi manipular números da mesma maneira que uma simples calculadora de bolso faria, Lisp é
+mais útil que uma calculadora por dois motivos principais. Primeiro, ele nos permite manipular objetos além de números
+e, segundo, permite definir novos objetos que podem ser úteis em cálculos subsequentes. vamos examinar essas duas
+propriedades importantes por sua vez.
 
-Além de números, Lisp pode representar caracteres (characters), sequências de caracteres(strings) e símbolos arbitrários, onde somos livres para interpretar esses símbolos como se referindo a coisas fora do mundo da matemática. O Lisp também pode criar objetos que não são atómos(nonatomic objects) combinando vários objetos em uma lista. Esta capacidade é fundamental e bem suportada na linguagem; na verdade, o nome Lisp é abreviação de List Processing(Processamento de lista).
+Além de números, Lisp pode representar caracteres (letras), sequências de caracteres e símbolos arbitrários, onde somos
+livres para interpretar esses símbolos como se referindo a coisas fora do mundo da matemática. O Lisp também pode criar
+objetos que não são átomos combinando vários objetos em uma lista. Esta capacidade é fundamental e bem suportada na
+linguagem; na verdade, o nome Lisp é abreviação de List Processing (Processamento de lista).
 
 Aqui está um exemplo de computação em listas:
 
@@ -71,15 +131,25 @@ Aqui está um exemplo de computação em listas:
 > (append '(Pat Kim) '(Robin Sandy)) => (PAT KIM ROBIN SANDY)
 ```
 
-Esta expressão acrescenta duas listas de nomes. A regra para avaliar essa expressão é igual a regra para cálculos(computação) numéricos: avalie todos os argumentos(no caso acima, '(Pat Kim) e '(Robin Sandy)) e depois aplique a função(no caso acima, append) ao valor dos argumentos.
+Esta expressão acrescenta duas listas de nomes. A regra para avaliar essa expressão é igual a regra para cálculos
+numéricos: avalie todos os argumentos (no caso acima, '(Pat Kim) e '(Robin Sandy)) e depois aplique a função (no caso
+acima, append) ao valor dos argumentos.
 
-A parte incomum é a marca de aspas (quote mark, `'()`) antes dos argumentos (Pat Kim) e (Robin Sandy), a aspas simples serve para bloquear a avaliaçao da seguinte expressão, retornando-a literalmente. Se apenas tivéssemos a expressão `(Pat Kim)`, ela seria avaliada considerando `Pat` como uma função e aplicando-a ao valor da expressão `Kim`. Não é isso que tínhamos em mente, se não existir uma função definida chamada ´Pat`, receberemos um erro. A marca de aspas instrui Lisp a tratar a lista como um fragmento de dados e não como uma chamada de função.
+A parte incomum é a marca de aspas `(')` antes dos argumentos (Pat Kim) e (Robin Sandy), a aspas simples serve para
+bloquear a avaliação da seguinte expressão, retornando-a literalmente. Se apenas tivéssemos a expressão `(Pat Kim)`, ela
+seria avaliada considerando `Pat` como uma função e aplicando-a ao valor da expressão `Kim`. Não é isso que tínhamos em
+mente, se não existir uma função definida chamada ´Pat`, receberemos um erro. A marca de aspas instrui ao Lisp a tratar a
+lista como um fragmento de dados e não como uma chamada de função.
 
 ```lisp
 > '(Pat Kim) (PAT KIM)
 ```
 
-Em outras linguagens de computador, as citações geralmente vêm em pares: uma para marcar o início e outra para marcar o fim. Em Lisp, uma aspa simples é usada para marcar o começo de uma expressão. Como sempre sabemos qual é o fim da expresão, um final de um átomo ou nos parênteses correspondentes de uma lista, não precisamos de um sinal de pontuação explícito para nos informar onde a expressão termina. As citações podem ser usadas em listas, com em `(Pat kim)`, em símbolos como em `'Robin` e de fato em qualquer outra coisa, aqui estão alguns exemplos:
+Em outras linguagens de computador, as citações geralmente vêm em pares: uma para marcar o início e outra para marcar o
+fim. Em Lisp, uma aspa simples é usada para marcar o começo de uma expressão. Como sempre sabemos qual é o fim da
+expressão, um final de um átomo, ou como nos parênteses correspondentes de uma lista não precisamos de um sinal de
+pontuação explícito para nos informar onde a expressão termina. As citações podem ser usadas em listas, com em `'(Pat
+kim)`, em símbolos como em `'Robin` e de fato em qualquer outra coisa, aqui estão alguns exemplos:
 
 ```lisp
 > 'John => JOHN
@@ -92,15 +162,21 @@ Em outras linguagens de computador, as citações geralmente vêm em pares: uma 
 
 > '(+  2 2) => (+  2 2)
 
-> (+  2 2) 4
+> (+  2 2) => 4
 
 > John => *Error: JOHN is not a bound variable*
 
 > (John Q Public) => *Error: JOHN is not a function*
 ```
-Note que `'2`avalia para `2` porque é uma expressão entre aspas, e `2` avalia para `2` porque os números avaliam a si mesmos, temos o mesmo resultado, porém, motivos diferentes. Em contraste, `'Jonh`avalia para `Jonh`porque é uma expressão precedida de aspa simples(quote), enquanto a avaliação `John` leva a um erro, porque avaliar um símbolo significa obter o valor do símbolo e nenhum valor foir atribuído a `John`.
 
-Computações simbólicas podem ser aninhadas e até misturadas com computações numéricas. A expressão a seguir cria uma lista de nomes de uma maneira um pouco diferente do que vimos anteriormente, usando a função embutida do Common Lisp `list`. Então, vemos como encontrar o número de elementos na lista, usando a função interna `length`:
+Note que `'2` avalia para `2` porque é uma expressão entre aspas, e `2` avalia para `2` porque os números avaliam a si
+mesmos, temos o mesmo resultado, porém, motivos diferentes. Em contraste, `'Jonh` avalia para `Jonh` porque é uma
+expressão precedida de aspa simples, enquanto a avaliação `John` leva a um erro, porque avaliar um símbolo significa
+obter o valor do símbolo e nenhum valor foi atribuído a `John`.
+
+Computações simbólicas podem ser aninhadas e até misturadas com computações numéricas. A expressão a seguir cria uma
+lista de nomes de uma maneira um pouco diferente do que vimos anteriormente, usando a função embutida do Common Lisp
+`list`. Então, vemos como encontrar o número de elementos na lista, usando a função interna `length`:
 
 ```lisp
 > (append '(Pat Kim) (list '(John Q Public) 'Sandy))
@@ -109,23 +185,39 @@ Computações simbólicas podem ser aninhadas e até misturadas com computaçõe
 > (length (append '(Pat Kim) (list '(John Q Public) 'Sandy)))
 4
 ```
+
 Há quatro pontos importantes a serem feitos sobre os símbolos:
 
-* Primeiro, é importante lembrar que o Lisp nãio atribui nenhum significado externo aos objetos que manipula. Por exemplo, pensamos naturalmente em `(Robin Sandy)` como uma lista de dois primeiros nomes e `(John Q Public)` como uma lista do primeiro nome de uma pessoa, inicial do meio e o sobrenome. Lisp não tem tais preconceitos. Par Lisp, ambos `Robin`e `xyzzy`são símbolos perfeitamente bons.
+* Primeiro, é importante lembrar que o Lisp não atribui nenhum significado externo aos objetos que manipula. Por
+  exemplo, pensamos naturalmente em `(Robin Sandy)` como uma lista de dois primeiros nomes e `(John Q Public)` como uma
+  lista do primeiro nome de uma pessoa, inicial do meio e o sobrenome. Lisp não tem tais preconceitos. Para o Lisp,
+  ambos `Robin`e `xyzzy` são símbolos perfeitamente bons.
 
-* Segundo, para fazer as computações acima, é preciso que haja já definido as funções `append`, `length`e `+`, que são funções já definidas por padrão no Common Lisp. Aprender uma linguagem envolve lembrar itens de vocabulário (ou saber onde procurá-los), bem como aprender as regras básicas para formar expressões e determinar o que elas significam. Common Lisp fornece mais de 700 funções embutidas(built-in functions).Em algum momento, o leito deve folhear um texto de referência para ver o que está lá, mas a maioria das funções importantes é apresentada na parte I deste livro.
+* Segundo, para fazer as computações acima, é preciso que haja já definido as funções `append`, `length`e `+`, que são
+  funções já definidas por padrão no Common Lisp. Aprender uma linguagem envolve lembrar itens de vocabulário (ou saber
+  onde procurá-los), bem como aprender as regras básicas para formar expressões e determinar o que elas
+  significam. Common Lisp fornece mais de 700 funções embutidas. Em algum momento, o leito deve folhear um texto de
+  referência para ver o que está lá, mas a maioria das funções importantes é apresentada na parte I deste livro.
 
-* Em terceiro lugar, observe que os símbolos no Common Lisp não diferenciam maiúsculas de minúsculas. Com isso quero dizer que as entradas `John`, `john` e `jOhN` todos se referem ao mesmo símbolo, que normalmente é impresso como `JOHN`.[2](#fn01-2)
+* Em terceiro lugar, observe que os símbolos no Common Lisp não diferenciam maiúsculas de minúsculas. Com isso quero
+  dizer que as entradas `John`, `john` e `jOhN` todos se referem ao mesmo símbolo, que normalmente é impresso como
+  `JOHN`.[2](#fn01-2)
 
-* Quarto, observe que uma grande variedade de caracteres é permitida em símbolos: números, letras e outros sinais de pontuação `+` ou `!`, as regras exatadas para o que constitui um símbolo são um pouco complicadas, mas a convenção normal é usar símbolos consistindo principalmente de letras, com palavras separadas por um `-` e talvez com um número no final. Alguns programadores são mais liberais ao nomerar variáveis e incluem caracteres como `?!$/<=>`. Por exemplo, uma função para converter dólares em iene(no inglês: yen, moeda usada no Japão) poderia ser nomeada com símbolo `$-to-yen` ou `$->yen` em Lisp, enquanto alguém usuaria algo como `DollarsToYen`, `dollars_to_yen` ou `dol2yen`em Pascal ou C. Existem algumas exceções a essas convenções de nomeclatura, que serão tratadas à medida que surgirem.
+* Quarto, observe que uma grande variedade de caracteres é permitida em símbolos: números, letras e outros sinais de
+  pontuação `+` ou `!`, as regras exatas para o que constitui um símbolo são um pouco complicadas, mas a convenção
+  normal é usar símbolos consistindo principalmente de letras, com palavras separadas por um `-` e talvez com um número
+  no final. Alguns programadores são mais liberais ao nomear variáveis e incluem caracteres como `?!$/<=>`. Por exemplo,
+  uma função para converter dólares em iene (no inglês: yen, moeda usada no Japão) poderia ser nomeada com símbolo
+  `$-to-yen` ou `$->yen` em Lisp, enquanto alguém usaria algo como `DollarsToYen`, `dollars_to_yen` ou `dol2yen`em
+  Pascal ou C. Existem algumas exceções a essas convenções de nomenclatura, que serão tratadas à medida que surgirem.
 
 ## 1.2 Variáveis
 
-We have seen some of the basics of symbolic computation.
-Now we move on to perhaps the most important characteristic of a programming language: the ability to define new objects in terms of others, and to name these objects for future use.
-Here symbols again play an important role-they are used to name variables.
-A variable can take on a value, which can be any Lisp object.
-One way to give a value to a variable is with `setf`:
+Vimos alguns dos conceitos básicos da computação simbólica. Agora nós veremos a cateterística (talvez) mais importante 
+de uma linguagem de programação: A capacidade para definir novos objetos em termos de outros, e também a capacidade de
+nomear esses objetos para uso futuro. Aqui, símbolos novamente desempenham um papel importante, são usados para nomear
+as variáveis. Uma variável pode ter um valor, que pode ser qualquer objeto Lisp. Uma maneira de dar um valor para uma
+variável é com `setf`:
 
 ```lisp
 > (setf p '(John Q Public)) => (JOHN Q PUBLIC)
@@ -134,60 +226,65 @@ One way to give a value to a variable is with `setf`:
 > (+ x x) => 20
 > (+ x (length p)) => 13
 ```
+Após a atribuição do valor `'(John Q Public))` para a variável nomeada `p`, podemos referir ao valor com o nome
+`p`. Semelhantemente, após a atribuição do valor `10` para a variável nomeada de `x`, podemos referir a ambos
+com os nomes `x` e `p`.
 
-After assigning the value (`John Q Public`) to the variable named `p`, we can refer to the value with the name `p`.
-Similarly, after assigning a value to the variable named `x`, we can refer to both `x` and `p`.
+Símbolos também são usados para nomear funções em Common Lisp. Cada símbolo pode ser usado como o nome de uma
+variável ou uma função, ou ambos, embora seja raro (e potencialmente confuso) ter símbolos nomeando a ambos.
+Um exemplo, `append` e `length` são símbolos que nomeiam funções, mas não possuem valores como variáveis, e `pi` não
+nomeia uma função, mas é uma variável cujo valor é 3.1415926535897936 (ou valor aproximado).
 
-Symbols are also used to name functions in Common Lisp.
-Every symbol can be used as the name of a variable or a function, or both, although it is rare (and potentially confusing) to have symbols name both.
-For example, `append` and `length` are symbols that name functions but have no values as variables, and `pi` does not name a function but is a variable whose value is 3.1415926535897936 (or thereabout).
+## 1.3 Formulários especiais
 
-## 1.3 Special Forms
+0 leitor atento notará que `setf` viola a regra de avaliação. Dissemos anteriormente que funções como `+`, `-` e
+`append` trabalham primeiramente avaliando todos os seus argumentos, e em seguida aplicando os resultados da avaliação
+para a função. Mas `setf` não segue esta regra, porque `setf` não é uma função de verdade. Em vez de ser uma função,
+`setf` é parte da sintaxe básica do Lisp. Além da sintaxe de átomos e funções, Lisp tem um pequeno número de expressões
+sintáticas, que são conhecidas como formulários especiais. Servem com o mesmo propósito das declarações em outras 
+linguagens de programação, e também há outras marcações sintáticas semelhantes, tais como `if` e `loop`. Há duas 
+principais diferenças entre a sintaxe de Lisp e outras linguagens. Primeiro, a sintaxe de formulários Lisp são sempre 
+listas "enfeitiçadas" onde o primeiro elemento é um símbolo privilegiado. `setf` é um desses símbolos, assim 
+`(setf x 10)` é um formulário especial. Segundo, formulários especiais são expressões que retornam um valor, isto é 
+contrastante com as declarações na maioria das linguagens, que possuem um efeito, mas não retornam um valor.
 
-The careful reader will note that `setf` violates the evaluation rule.
-We said earlier that functions like `+`, - and `append` work by first evaluating all their arguments and then applying the function to the result.
-But `setf` doesn't follow that rule, because `setf` is not a function at all.
-Rather, it is part of the basic syntax of Lisp.
-Besides the syntax of atoms and function calls, Lisp has a small number of syntactic expressions.
-They are known as *special forms.*
-They serve the same purpose as statements in other programming languages, and indeed have some of the same syntactic markers, such as `if` and `loop`.
-There are two main differences between Lisp's syntax and other languages.
-First, Lisp's syntactic forms are always lists in which the first element is one of a small number of privileged symbols.
-`setf` is one of these symbols, so (`setf x 10`) is a special form.
-Second, special forms are expressions that return a value.
-This is in contrast to statements in most languages, which have an effect but do not return a value.
+Ao avaliar uma expressão como `(setf x (+ 1 2))`, definimos a variável nomeada pelo símbolo `x` para o valor de 
+`(+ 1 2)`, que é 3. Se `setf` fosse uma função normal, iria ser avaliado tanto o símbolo `x` e a expressão 
+`(+ 1 2)`, para em seguida fazer alguma coisa com esses dois valores não é isso o que queremos que aconteça. 
+`setf` é chamado de fomulário especial porque faz algo especial: se `setf` não existisse, seria impossível escrever uma
+função que atribui um valor para uma variável. A filosofia do Lisp é prover um pequeno número de formulários especiais
+para fazer coisas que seriam difíceis ou impossíveis com funções, e em seguida, espera que o usuário escreva todo o
+resto que necessitar como funções. 
 
-In evaluating an to expression *(ed note: ???)* like `(setf x (+  1 2)`), we set the variable named by the symbol `x` to the value of `(+  1 2)`, which is `3`.
-If `setf` were a normal function, we would evaluate both the symbol `x` and the expression `(+  1 2)` and do something with these two values, which is not what we want at all.
-`setf` is called a special form because it does something special: if it did not exist, it would be impossible to write a function that assigns a value to a variable.
-The philosophy of Lisp is to provide a small number of special forms to do the things that could not otherwise be done, and then to expect the user to write everything else as functions.
+O termo "formulário especial" (special forms) é usado confusamente para se referir tanto para símbolos como `setf` e
+expressões que começam com eles, como `(setf x 3)`. No livro *Common LISPcraft*, Wilensky resolve a ambiguidade chamando 
+`setf` de função especial (special function), e reservando o termo formulário especial para `(setf x 3)`.
+Esta terminologia implica que `setf` é apenas mais uma função, porém uma função especial em que o seu primeiro argumento
+não é avaliado. Tal visão fazia sentido nos dias em que Lisp foi principalmente uma linguagem interpretada. A visão
+moderna é que `setf` não deve ser considerado algum tipo de função anormal, mas sim um marcador de sintaxe especial que
+serão tratados especialmente pelo compilador. Assim, o fomulário especial `(setf x (+ 2 1))` deve ser considerado o
+equivalente na linguagem de programação C: `x = 2 + 1`. Quando há risco de confusão, chamaremos `setf` de operador de
+formulário especial (special form operator) e `(setf x 3)` de expressão de formulário especial (special form expression).
 
-The term *special form* is used confusingly to refer both to symbols like `setf` and expressions that start with them, like `(setf x 3)`.
-In the book *Common LISPcraft,* Wilensky resolves the ambiguity by calling `setf` a *special function,* and reserving the term *special form* for (`setf x 3`).
-This terminology implies that `setf` is just another function, but a special one in that its first argument is not evaluated.
-Such a view made sense in the days when Lisp was primarily an interpreted language.
-The modern view is that `setf` should not be considered some kind of abnormal function but rather a marker of special syntax that will be handled specially by the compiler.
-Thus, the special form `(setf x (+  2 1))` should be considered the equivalent of `x = 2 + 1` in `C`.
-When there is risk of confusion, we will call `setf` a *special form operator* and `(setf x 3)` a *special form expression.*
-
-It turns out that the quote mark is just an abbreviation for another special form.
-The expression '*x* is equivalent to `(quote *x*)`, a special form expression that evaluates to *x.*
-The special form operators used in this chapter are:
+A marcação de aspas é apenas uma abreviação para outro formulário especial. A expressão `'x` é equivalente a
+`(quote *x*)`, uma expressão de formulário especial que é avaliada para `x`. Os operadores de formulário especial usados
+neste capítulo são:
 
 | []()            |                                              |
 |-----------------|----------------------------------------------|
-| `defun`         | define function                              |
-| `defparameter`  | define special variable                      |
-| `setf`          | set variable or field to new value           |
-| `let`           | bind local variable(s)                       |
-| `case`          | choose one of several alternatives           |
-| `if`            | do one thing or another, depending on a test |
-| `function (#')` | refer to a function                          |
-| `quote (')`     | introduce constant data                      |
+| `defun`         | define uma função                            |
+| `defparameter`  | define uma variável especial                  |
+| `setf`          | altera variáveis ou campos para novo valor           |
+| `let`           | liga variáveis locais                 |
+| `case`          | escolher uma das varias alternativas         |
+| `if`            | fazer uma coisa ou outra, dependendo de um teste |
+| `function (#')` | referir a uma função                         |
+| `quote (')`     | introduzir dados constantes                    |
 
-## 1.4 Lists
+## 1.4 Listas
 
-So far we have seen two functions that operate on lists: `append` and `length.` Since lists are important, let's look at some more list processing functions:
+Até agora vimos duas funções que operam em listas: `append` e `length`. Uma vez que listas são importantes, vamos olhar
+para mais funções de processamento de listas:
 
 ```lisp
 > p => (JOHN Q PUBLIC)
@@ -205,11 +302,12 @@ So far we have seen two functions that operate on lists: `append` and `length.` 
 > (length p) => 3
 ```
 
-The functions `first, second, third,` and `fourth` are aptly named: `first` returns the first element of a list, `second` gives you the second element, and so on.
-The function `rest` is not as obvious; its name stands for "the rest of the list after the first element." The symbol `nil` and the form `()` are completely synonymous; they are both representations of the empty list.
-`nil` is also used to denote the "false" value in Lisp.
-Thus, `(fourth p)` is `nil` because there is no fourth element of `p`.
-Note that lists need not be composed only of atoms, but can contain sublists as elements:
+As funções `first`, `second`, `third` e `fourth` são apropriadamente nomeadas: `first` retorna o primeiro elemento da
+lista, `second` retorna o segundo elemento, e assim por diante. A função `rest` não é tão óbvia; o seu nome significa "o
+resto da lista após o primeiro elemento". O símbolo `nil` e o formulário `()` são completamente sinônimos; ambos são
+representações de lista vazia. `nil` é também usado para denotar o valor "false" em Lisp. Assim, acima `(fourth p)` é
+`nil` porque não há um quarto elemento de `p`. Note que listas não precisam ser compostas apenas de átomos, mas podem
+conter sublistas como elementos.
 
 ```lisp
 > (setf x '((1st element) 2 (element 3) ((4)) 5))
@@ -236,8 +334,7 @@ Note that lists need not be composed only of atoms, but can contain sublists as 
 > (second (first x)) => ELEMENT
 ```
 
-So far we have seen how to access parts of lists.
-It is also possible to build up new lists, as these examples show:
+Até agora temos visto como acessar partes de listas. Também é possível construir novas listas, veja os exemplos abaixo:
 
 ```lisp
 > p => (JOHN Q PUBLIC)
@@ -256,21 +353,20 @@ It is also possible to build up new lists, as these examples show:
 
 > p => (JOHN Q PUBLIC)
 ```
-
-The function cons stands for "construct."
+A função `cons` significa construct (construir).
 <a id="tfn01-3"></a>
-It takes as arguments an element and a list,[3](#fn01-3) and constructs a new list whose first is the element and whose rest is the original list.
-`list` takes any number of elements as arguments and returns a new list containing those elements in order.
-We've already seen `append`, which is similar to `list`; it takes as arguments any number of lists and appends them all together, forming one big list.
-Thus, the arguments to `append` must be lists, while the arguments to `list` may be lists or atoms.
-It is important to note that these functions create new lists; they don't modify old ones.
-When we say `(append p q)`, the effect is to create a brand new list that starts with the same elements that were in `p.
-p` itself remains unchanged.
+Ela pede como argumentos um elemento e uma lista[3](#fn01-3), então constrói uma nova lista cujo `first` é o elemento e
+o `rest` é a lista original. `list` leva qualquer número de elementos como argumentos e retornam uma nova lista contendo
+os elementos. Nós já vimos `append`, que é semelhante a `list`, qual pede como argumentos qualquer número de listas,
+unindo todas, formando uma grande lista. Assim, os argumentos de `append` devem ser listas, enquanto os argumentos de
+`list` podem ser listas ou átomos. É importante notar que essas funções criam novas listas, elas não modificam as
+antigas. Quando dizemos `(append p q)`, o efeito é criar uma nova lista que começa com os mesmos elementos que estavam
+em `p`, contudo `p` permanece inalterada.
 
-Now let's move away from abstract functions on lists, and consider a simple problem: given a person's name in the form of a list, how might we extract the family name?
-For `(JOHN Q PUBLIC)` we could just use the function `third`, but that wouldn't work for someone with no middle name.
-There is a function called `last` in Common Lisp; perhaps that would work.
-We can experiment:
+Agora vamos nos afastar de funções para listas, e considerar um simples problema: dado um nome de uma pessoa sob a forma
+de uma lista, como poderíamos extrair o nome da família? Para `(JOHN Q PUBLIC)` nós poderíamos usar a função `third`,
+mas não funcionaria para alguém sem nome do meio. Há uma função chamada `last` em Common Lisp; talvez pode funcionar,
+vamos experimentar:
 
 ```lisp
 > (last p) => (PUBLIC)
@@ -279,17 +375,17 @@ We can experiment:
 ```
 
 <a id="tfn01-4"></a>
-It turns out that `last` perversely returns a list of the last element, rather than the last element itself.[4](#fn01-4)
-Thus we need to combine `first` and `last` to pick out the actual last element.
-We would like to be able to save the work we've done, and give it a proper description, like `last-name`.
-We could use `setf` to save the last name of `p`, but that wouldn't help determine any other last name.
-Instead we want to define a new function that computes the last name of *any* name that is represented as a list.
-The next section does just that.
+Acontece que `last` perversamente retorna uma lista com o último elemento, em vez do último elemento em si.[4](#fn01-4) 
+Assim nós precisamos combinar `first` e `last` para obter o último elemento realmente. Gostaríamos de ser capaz de
+salvar o trabalho que fizemos, e dar-lhe uma boa descrição, chamando-o como `last-name`. Nós poderíamos usar `setf` para
+salvar o último nome de `p `, mas isso não nos ajudaria obter qualquer outro último nome. Ao invés disso, queremos
+definir uma nova função que calcula o último nome de qualquer nome que é representado como uma lista. Na próxima seção
+veremos exatamente isso.
 
-## 1.5 Defining New Functions
+## 1.5 Definindo novas funções
 
-The special form `defun` stands for "define function."
-It is used here to define a new function called `last-name`:
+O formulário especial `defun` serve para "definir funções". 
+Abaixo é usado para definir uma nova função chamada `last-name`:
 
 ```lisp
 (defun last-name (name)
@@ -297,14 +393,15 @@ It is used here to define a new function called `last-name`:
   (first (last name)))
 ```
 
-We give our new function the name `last-name.` It has a *parameter list* consisting of a single parameter: (`name`).
-This means that the function takes one argument, which we will refer to as `name`.
-It also has a *documentation string* that states what the function does.
-This is not used in any computation, but documentation strings are crucial tools for debugging and understanding large systems.
-The body of the definition is `(first (last name))`, which is what we used before to pick out the last name of `p`.
-The difference is that here we want to pick out the last name of any `name,` not just of the particular name `p`.
+Nós damos para a nova função o nome `last-name`. Tem uma lista de parâmetros consistindo de um único parâmetro:
+`name`. Isso significa que a função leva um argumento. O qual nos referimos como `name`. Também temos uma cadeia 
+de caracteres de documentação (documentation string) que informa o que a função faz; isso não é usado em qualquer
+computação, mas as String de documentação são ferramentas cruciais para depuração e compreensão de sistemas grandes.
+O corpo da definição é `(first (last name))`, qual é o que usamos para obter o último nome de `p`. A diferença é que
+aqui nós queremos obter o último nome de qualquer nome passado como o argumento `name`, não apenas do nome específico `p`.
 
-In general, a function definition takes the following form (where the documentation string is optional, and all other parts are required):
+Em geral, a definição da função leva o seguinte formulário (onde a "documentation string" é opcional, e todas as outras
+partes são requeridas:
 
 ```lisp
 (defun *function-name* (*parameter...*)
@@ -312,10 +409,11 @@ In general, a function definition takes the following form (where the documentat
       *function-body...*)
 ```
 
-The function name must be a symbol, the parameters are usually symbols (with some complications to be explained later), and the function body consists of one or more expressions that are evaluated when the function is called.
-The last expression is returned as the value of the function call.
+O nome da função deve ser um símbolo, os parâmetros são geralmente símbolos (com algumas complicações para serem
+explicadas mais tarde), e o corpo da função consiste de uma ou mais expressões que serão avaliadas quando a função é
+chamada. A última expressão é retornada como o valor da chamada da função. 
 
-Once we have defined `last-name,` we can use it just like any other Lisp function:
+Umas vez que definimos `last-name`, podemos usá-lo como qualquer outra função Lisp: 
 
 ```lisp
 > (last-name p) => PUBLIC
@@ -329,17 +427,22 @@ Once we have defined `last-name,` we can use it just like any other Lisp functio
 > (last-name '(Aristotle)) => ARISTOTLE
 ```
 
-The last three examples point out an inherent limitation of the programming enterprise.
-When we say `(defun last-name...)` we are not really defining what it means for a person to have a last name; we are just defining an operation on a representation of names in terms of lists.
-Our intuitions-that MD is a title, Spot is the first name of a dog, and Aristotle lived before the concept of last name was invented-are not represented in this operation.
-However, we could always change the definition of `last-name` to incorporate these problematic cases.
+Os últimos três exemplos apontam uma limitação inerente da empresa de programação. 
+Quando nos dizemos `(defun last-name...)` nós não estamos realmente definindo o que significa para a pessoa ter um
+último nome; estamos apenas definindo uma operação em uma representação de nomes em termos de listas. 
 
-We can also define the function `first-name`.
-Even though the definition is trivial (it is the same as the function `first`), it is still good practice to define `first-name` explicitly.
-Then we can use the function `first-name` when we are dealing with names, and `first` when we are dealing with arbitrary lists.
-The computer will perform the same operation in each case, but we as programmers (and readers of programs) will be less confused.
-Another advantage of defining specific functions like `first-name` is that if we decide to change the representation of names we will only have to change the definition of `first-name`.
-This is a much easier task than hunting through a large program and changing the uses of `first` that refer to names, while leaving other uses alone.
+Nossas intuições dizem que "MD" é um título, "Spot" é um primeiro nome de um cachorro, e "Aristotle" vivia antes do
+conceito de sobrenome ter sido inventado. Nós não estamos representando esses casos em nossa operação. No entanto, 
+podemos sempre mudar a definição de `last-name` para incorporar esses casos problemáticos.
+
+Nós podemos também definir a função `first-name`.
+Mesmo que a definição seja trivial (isto é o mesmo que a função `first`), é ainda boa prática definir `first-name`
+explicitamente. Então nós podemos usar a função `first-name` quando estivermos lidando com nomes, e `first` quando
+estivermos lidando com listas arbitrárias. O computador irá executar a mesma operação em cada caso, mas nós como
+programadores (e leitores de programas) buscamos ser o menos confuso possível. Outra vantagem de definir uma função
+específica como `first-name` é que se decidirmos mudar a representação dos nomes só precisaremos mudar a definição
+de `first-name`. É uma tarefa muito mais fácil do que ficar caçando um grande programa e alterar cada pedaço de código onde
+estamos usando `first` para referir a nomes, deixando outros usos de `first` em paz.
 
 ```lisp 
 (defun first-name (name)
@@ -364,10 +467,12 @@ This is a much easier task than hunting through a large program and changing the
 > (first-name (first names)) => JOHN
 ```
 
-In the last expression we used the function `first` to pick out the first element in a list of names, and then the function `first-name` to pick out the first name of that element.
-We could also have said `(first (first names))` or even `(first (first-name names))` and still have gotten `JOHN,` but we would not be accurately representing what is being considered a name and what is being considered a list of names.
+Nesta última expressão nós usamos a função `first` para pegar o primeiro elemento de uma lista de nomes, e então 
+usamos a função `first-name` para pegar o primeiro nome desse elemento. Poderíamos também ter dito 
+`(first (first names))` ou mesmo `(first (first-name names))` e ainda conseguiríamos `JOHN`, mas não estaríamos
+representando com exatidão o que está sendo considerado um nome ou o que está sendo considerado uma lista de nomes.
 
-## 1.6 Using Functions
+## 1.6 Usando funções
 
 One good thing about defining a list of names, as we did above, is that it makes it easier to test our functions.
 Consider the following expression, which can be used to test the `last-name` function:
