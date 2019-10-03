@@ -870,12 +870,16 @@ Essas funções de tempo de execução, conhecidas como encerramentos/fechamento
 
 ## 1.8 Outros tipos de dados
 
-So far we have seen just four kinds of Lisp objects: numbers, symbols, lists, and functions.
-Lisp actually defines about 25 different types of objects: vectors, arrays, structures, characters, streams, hash tables, and others.
-At this point we will introduce one more, the string.
-As you can see in the following, strings, like numbers, evaluate to themselves.
-Strings are used mainly for printing out messages, while symbols are used for their relationships to other objects, and to name variables.
-The printed representation of a string has a double quote mark `(")` at each end.
+Até agora temos visto apenas quatro tipos de objetos Lisp: números (numbers), símbolos (symbols), listas (lists) e
+funções (functions).
+Lisp atualmente define certa de 25 diferentes tipos de objetos: vetores (vectors), matrizes (arrays), estruturas
+(structures), caracteres (characters), fluxos (streams), tabelas de hash (hash tables), entre outros.
+
+Neste ponto, apresentamos mais uma, a cadeia de caracteres (string).
+Como você pode ver a seguir, cadeia de caracteres, assim como os números, são avaliadas por elas mesmas.
+Strings são usadas principalmente para imprimir mensagens, enquanto símbolos são usados para seus relacionamentos 
+com outros objetos e para nomear variáveis.
+A representação impressa de uma string tem uma marcação de aspas dupla `(")` em cada extremidade.
 
 ```lisp
 > "a string" => "a string"
@@ -885,47 +889,50 @@ The printed representation of a string has a double quote mark `(")` at each end
 > (length "") => 0
 ```
 
-## 1.9 Summary: The Lisp Evaluation Rule
+## 1.9 Sumário: A regra de avaliação do Lisp
 
-We can now summarize the evaluation rule for Lisp.
+Podemos agora resumir a regra de avaliação do Lisp:
 
-*   Every expression is either a *list* or an *atom.*
+*   Toda expressão é uma *lista* ou um *átomo*.
 
-*   Every list to be evaluated is either a *special form expression* or a *function application*.
+*   Toda lista avaliada é uma *expressão de formulário especial* ou uma *aplicação de função*.
 
-*   A *special form expression* is defined to be a list whose first element is a special form operator.
-The expression is evaluated according to the operator's idiosyncratic evaluation rule.
-For example, the evaluation rule for `setf` is to evaluate the second argument according to the normal evaluation rule, set the first argument to that value, and return the value as the result.
-The rule for `defun` is to define a new function, and return the name of the function.
-The rule for quote is to return the first argument unevaluated.
-The notation `'x` is actually an abbreviation for the special form expression `(quote x)`.
-Similarly, the notation `#'f` is an abbreviation for the special form expression `(function f)`.
-
+*   Uma *expressão de formulário especial* é definida como uma lista cujo primeiro elemento da lista é um 
+    operador de fomulário especial. A expressão é avaliada de acordo com a regra de avaliação 
+    idiossincrática do operador. Por exemplo, 
+    a regra de avaliação para `setf` é avaliar o segundo argumento de acordo com a regra de avaliação normal, e definir 
+    ao primeiro argumento esse valor do segundo argumento, e retornar o valor como resultado. A regra para `defun` é
+    definir a nova função, e retornar o nome da função. A regra para `quote` é retornar o primeiro argumento não
+    avaliado. A notação `'x` é uma abreviação para a expressão de fomulário especial `(quote x)`. Similarmente, a
+    notação `#'f` é uma abreviação para a expressão de formulário especial `(function f)`.
+    
 ```lisp
 'John = (quote John) => JOHN
 
 (setf p 'John) => JOHN
 
-defun twice (x) (+ x x)) => TWICE
+(defun twice (x) (+ x x)) => TWICE
 
 (if (=  2 3) (error) (+  5 6)) => 11
 ```
 
-*   A *function application* is evaluated by first evaluating the arguments (the rest of the list) and then finding the function named by the first element of the list and applying it to the list of evaluated arguments.
+*   A *aplicação de função* é avaliada primeiro avaliando os argumentos (o restante da lista) e então localizando a 
+    função nomeada pelo primeiro elemento da lista e aplicando essa função à lista de argumentos avaliados.
 
 ```lisp
 (+  2 3) => 5
 (- (+  90 9) (+  50 5 (length '(Pat Kim)))) => 42
 ```
 
-Note that if `'(Pat Kim)` did not have the quote, it would betreated as a function application of the function `pat` to the value of the variable `kim.`
+Note que se `'(Pat Kim)` não tiver uma citação (`quote`), seria tratada como uma aplicação de função da função `pat`
+para o valor da variável `kim`.
 
-*   Every atom is either a *symbol* or a *nonsymbol.*
+*   Todo átomo é um *símbolo* ou um *não-símbolo*.
 
-*   A *symbol* evaluates to the most recent value that has been assigned to the variable named by that symbol.
-Symbols are composed of letters, and possibly digits and, rarely, punctuation characters.
-<a id="tfn01-6"></a>
-To avoid confusion, we will use symbols composed mostly of the letters `a-z` and the `'-'` character, with a few exceptions.[6](#fn01-6)
+*   Um *símbolo* avalia o valor mais recente atribuído à variável nomeada por esse símbolo. Símbolos são compostos de
+    letras, e possíveis dígitos, e raramente, caracteres de pontuação. <a id="tfn01-6"></a>
+    Para evitar confusão, iremos usar símbolos compostos principalmente de letras `a-z` e o caractere `-`, 
+    com algumas exceções.[6](#fn01-6)
 
 ```lisp
 names
@@ -933,11 +940,10 @@ p
 *print-pretty*
 ```
 
-*   A *nonsymbol atom* evaluates to itself.
-For now, numbers and strings are the only such non-symbol atoms we know of.
-Numbers are composed of digits, and possibly a decimal point and sign.
-There are also provisions for scientific notation, rational and complex numbers, and numbers with different bases, but we won't describe the details here.
-Strings are delimited by double quote marks on both sides.
+*   Um átomo *não-símbolo* é avaliado por si mesmo. Por enquanto, números e cadeias de caracteres são os únicos
+    não-símbolos que conhecemos. Números são compostos de dígitos, e possivelmente um ponto decimal e um sinal. Existem
+    também disposições para notação científica, racionais e números complexos, e números com bases diferentes, mas não
+    iremos descrever os detalhes aqui. Cadeias de caracteres são delimitadas por marcação de aspas dupla em suas extremidades.
 
 ```lisp
 42 => 42
@@ -945,30 +951,41 @@ Strings are delimited by double quote marks on both sides.
 "a string" => "a string"
 ```
 
-There are some minor details of Common Lisp that complicate the evaluation rules, but this definition will suffice for now.
+Existe alguns pequenos detalhes do Common Lisp que complicam as regras de avaliação, mas essa definição será suficiente
+por enquanto.
 
-One complication that causes confusion for beginning Lispers is the difference between *reading* and *evaluating* an expression.
-Beginners often imagine that when they type an expression, such as
+Uma complicação que causa confusão em Lispers iniciantes é a diferença entre *ler* e *avaliar* uma expressão.
+Iniciantes geralmente imaginam que quando eles escrevem uma expressão, como:
 
 ```lisp
 > (+ (* 3 4) (* 5 6))
 ```
 
-the Lisp system first reads the (`+`, then fetches the addition function, then reads `(* 3 4)` and computes `12`, then reads `(* 5 6)` and computes 30, and finally computes 42.
-In fact, what actually happens is that the system first reads the entire expression, the list `(+ (* 3 4) (* 5 6))`.
-Only after it has been read does the system begin to evaluate it.
-This evaluation can be done by an interpreter that looks at the list directly, or it can be done by a compiler that translates the list into machine language instructions and then executes those instructions.
+O sistema Lisp primeiro lê o `(+`, então busca a função de adição, depois lê `(* 3 4)` e computa `12`, depois 
+lê `(* 5 6)` e computa `30`, e finalmente computa `42`.
+De fato, o que realmente acontece é que o sistema primeiro lê toda a expressão, a lista `(+ (* 3 4) (* 5 6))`.
+Somente depois da leitura, o sistema começa a avaliar.
+A avaliação pode ser feita por um interpretador que olha a lista diretamente, ou pode ser feita por um compilador que
+traduz a lista em instruções de linguagem de máquina e depois executa essas instruções.
 
-We can see now that it was a little imprecise to say, "Numbers are composed of digits, and possibly a decimal point and sign." It would be more precise to say that the printed representation of a number, as expected by the function read and as produced by the function print, is composed of digits, and possibly a decimal point and sign.
-The internal representation of a number varies from one computer to another, but you can be sure that it will be a bit pattern in a particular memory location, and it will no longer contain the original characters used to represent the number in decimal notation.
-Similarly, it is the printed representation of a string that is surrounded by double quote marks; the internal representation is a memory location marking the beginning of a vector of characters.
+Podemos ver agora que era um pouco impreciso dizer, "Números são compostos de dígitos, e possivelmente um ponto decimal
+e um sinal." Seria mais preciso dizer que a representação impressa de um número, como esperado pela função lida, e como
+produzida pela função de impressão, é compostas de dígitos, e possivelmente um ponto decimal e sinal.
+A representação interna do número varia de um computador para outro, mas você pode ter certeza que haverá um padrão de 
+bits em um determinado local da memória e não conterá mais os caracteres originais usados para representar o número em
+notação decimal. Similarmente, é a representação impressa de uma cadeia de caracteres que é cercada com marcação de
+aspas dupla; a representação interna é um local da memória que marca o início de um vetor de caracteres.
 
-Beginners who fail to grasp the distinction between reading and evaluating may have a good model of what expressions evaluate to, but they usually have a terrible model of the efficiency of evaluating expressions.
-One student used only one-letter variable names, because he felt that it would be faster for the computer to look up a one-letter name than a multiletter name.
-While it may be true that shorter names can save a microsecond at read time, this makes no difference at all at evaluation time.
-Every variable, regardless of its name, is just a memory location, and the time to access the location does not depend on the name of the variable.
+Os iniciantes que não conseguem entender a distinção entre leitura e avaliação podem ter um bom modelo do que as expressões
+avaliam, mas eles geralmente têm um modelo terrível da eficiência da avaliação de expressões.
+Um aluno usou apenas nomes de variáveis de uma letra, porque ele intuiu que seria mais rápido para o computador procurar 
+para um nome de uma letra do que um nome de muitas letras.
+Embora pode ser verdade que nomes mais curtos possam economizar um microssegundo no tempo de leitura, isso não faz diferença no
+tempo total de avaliação. 
+Toda variável, independente do seu nome, é apenas um local da memória, e o tempo de acesso a esse local não depende do nome
+da variável.
 
-## 1.10 What Makes Lisp Different?
+## 1.10 O que torna o Lisp diferente?
 
 What is it that sets Lisp apart from other languages?
 Why is it a good language for AI applications?
