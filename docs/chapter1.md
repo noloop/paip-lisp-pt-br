@@ -684,12 +684,15 @@ Programadores que aprendem a pensar dessa maneira consideram a recursão uma fer
 
 ## 1.7 Funções de ordem superior
 
-Functions in Lisp can not only be "called," or applied to arguments, they can also be manipulated just like any other kind of object.
-A function that takes another function as an argument is called a *higher-order function.*
-`mapcar` is an example.
-To demonstrate the higher-order-function style of programming, we will define a new function called `mappend.` It takes two arguments, a function and a list.
-`mappend` maps the function over each element of the list and appends together all the results.
-The first definition follows immediately from the description and the fact that the function `apply` can be used to apply a function to a list of arguments.
+As funções em Lisp não podem apenas ser "chamadas", ou aplicadas a argumentos, mas também podem ser manipuladas como
+qualquer outro tipo de objeto.
+Uma função que aceita outra função como um argumento é chamada de função de ordem superior (higher-order function).
+`mapcar` é um exemplo.
+Para demonstrar o estilo de programação de funções de ordem superior, iremos definir uma nova função chamada `mappend`,
+qual aceita dois argumentos, uma função e uma lista.
+`mappend` mapeia a função sobre cada elemento da lista e une todos os resultados.
+A primeira definição segue imediatamente a descrição e o fato que a função `apply` pode ser usada para aplicar uma
+função a uma lista de argumentos.
 
 ```lisp
 (defun mappend (fn the-list)
@@ -697,21 +700,21 @@ The first definition follows immediately from the description and the fact that 
   (apply #'append (mapcar fn the-list)))
 ```
 
-Now we experiment a little to see how `apply` and `mappend` work.
-The first example applies the addition function to a list of four numbers.
+Agora experimentamos um pouco para ver como `apply` e `mappend` funcionam.
+O primeiro exemplo aplica a função de adição para uma lista de quatro números.
 
 ```lisp
 > (apply #'+ '(1 2 3 4)) => 10
 ```
 
-The next example applies append to a list of two arguments, where each argument is a list.
-If the arguments were not lists, it would be an error.
+O próximo exemplo aplica a função `append` para uma lista de dois argumentos, onde cada argumento é uma lista.
+Se os argumentos não forem listas, isso daria errado.
 
 ```lisp
 > (apply #'append '((1 2 3) (a b c))) => (1 2 3 A B C)
 ```
 
-Now we define a new function, `self-and-double`, and apply it to a variety of arguments.
+Agora definimos uma nova função, `self-and-double`, e a aplicamos uma variedade de argumentos.
 
 ```lisp
 > (defun self-and-double (x) (list x (+ x x)))
@@ -721,8 +724,9 @@ Now we define a new function, `self-and-double`, and apply it to a variety of ar
 > (apply #'self-and-double '(3)) => (3 6)
 ```
 
-If we had tried to apply `self-and-double` to a list of more than one argument, or to a list that did not contain a number, it would be an error, just as it would be an error to evaluate (`self-and-double 3 4`) or (`self-and-double 'Kim`).
-Now let's return to the mapping functions:
+Se tentarmos aplicar `self-and-double` para uma lista de mais de um argumento, ou para uma lista que não tenha nenhum
+número, isso seria um erro, assim como seria um erro avaliar `(self-and-double 3 4)` ou `(self-and-double 'kim)`.
+Agora vamos retornar para as funções de mapeamento:
 
 ```lisp
 > (mapcar #'self-and-double '(1 10 300)) => ((1 2) (10 20) (300 600))
@@ -730,14 +734,17 @@ Now let's return to the mapping functions:
 > (mappend #'self-and-double '(1 10 300)) => (1 2 10 20 300 600)
 ```
 
-When `mapcar` is passed a function and a list of three arguments, it always returns a list of three values.
-Each value is the result of calling the function on the respective argument.
-In contrast, when `mappend` is called, it returns one big list, which is equal to all the values that `mapcar` would generate appended together.
-It would be an error to call `mappend` with a function that didn't return lists, because `append` expects to see lists as its arguments.
+Quando `mapcar` recebe uma função e uma lista com três argumentos, isso sempre retorna uma lista com três valores.
+Cada valor é o resultado da chamada da função no respectivo argumento.
+Em contraste, quando `mappend` é chamada, é retornada uma grande lista, qual é igual a todos os valores que `mapcar`
+geraria anexados juntos.
+Seria um erro chamar `mappend` com uma função que não retorna listas, porque `append` espera ver listas como seus
+argumentos.
 
-Now consider the following problem: given a list of elements, return a list consisting of all the numbers in the original list and the negation of those numbers.
-For example, given the list (`testing 1 2 3 test`), return (`1 -1 2 -2 3 -3`).
-This problem can be solved very easily using `mappend` as a component:
+Agora considere o seguinte problema: ao dar uma lista de elementos, retorne uma lista consistindo de todos os números na
+lista original e a negação desses números.
+Por exemplo, ao dar a lista `(testing 1 2 3 test)`, retorne `(1 -1 2 -2 3 -3)`.
+Este problema pode ser resolvido facilmente usando `mappend` como um componente:
 
 ```lisp
 (defun numbers-and-negations (input)
@@ -753,7 +760,8 @@ This problem can be solved very easily using `mappend` as a component:
 > (numbers-and-negations '(testing 1 2 3 test)) => (1 -1 2 -2 3 -3)
 ```
 
-The alternate definition of `mappend` shown in the following doesn't make use of `mapcar;` instead it builds up the list one element at a time:
+A definição alternativa de `mappend` mostrada um seguir não faz uso de `mapcar`, em vez disso, cria a lista utiliza 
+o conceito de recursão para aplicar-se a um elemento de cada vez:
 
 ```lisp
 (defun mappend (fn the-list)
@@ -764,7 +772,8 @@ The alternate definition of `mappend` shown in the following doesn't make use of
               (mappend fn (rest the-list)))))
 ```
 
-`funcall` is similar to `apply;` it too takes a function as its first argument and applies the function to a list of arguments, but in the case of `funcall`, the arguments are listed separately:
+`funcall` é similar a `apply`, pois também recebe uma função como seu primeiro argumento e aplica a função para uma
+lista de argumentos, mas `funcall` lista os argumentos separadamente:
 
 ```lisp
 > (funcall #'+ 2 3) => 5
@@ -774,30 +783,37 @@ The alternate definition of `mappend` shown in the following doesn't make use of
 > (funcall #' + '(2 3)) => *Error: (2 3) is not a number.*
 ```
 
-These are equivalent to `(+  2 3), (+ 2 3)`,and`(+ '(2 3))`, respectively.
+Eles são equivalentes a `(+  2 3)`, `(+ 2 3)` e `(+ '(2 3))`, respectivamente.
 
-So far, every function we have used has been either predefined in Common Lisp or introduced with a `defun`, which pairs a function with a name.
-It is also possible to introduce a function without giving it a name, using the special syntax `lambda`.
+Até agora, todas funções que usamos foram predefinidas no Common Lisp ou introduzida com um `defun`, que emparelha 
+uma função com um nome.
+Também é possível introduzir uma função sem dar um nome a ela, usando a sintaxe especial `lambda`.
 
-The name *lambda* comes from the mathematician Alonzo Church's notation for functions (Church 1941).
-Lisp usually prefers expressive names over terse Greek letters, but lambda is an exception.
-A better name would be `make-function`.
-Lambda derives from the notation in Russell and Whitehead's *Principia Mathematica,* which used a caret over bound variables: *x&#x302;*(*x + x*).
+O nome *lambda* vem da notação de funções do matemático Alonzo Church's(Church 1941).
+Lisp geralmente prefere nomes expressivos a letras Gregas concisas, mas `lambda` é uma exceção.
+Um melhor nome seria `make-function`.
+Lambda deriva da notação em *Principia Mathematica* de Russell e Whitehead, que usava um sinal de intercalação sobre
+variáveis ligadas: *x&#x302;*(*x + x*).
 
-Church wanted a one-dimensional string, so he moved the caret in front: *^x*(*x + x*).
-The caret looked funny with nothing below it, so Church switched to the closest thing, an uppercase lambda, *&Lambda;x*(*x + x*).
-The &Lambda; was easily confused with other symbols, so eventually the lowercase lambda was substituted: *&lambda;x*(*x + x*).
-John McCarthy was a student of Church's at Princeton, so when McCarthy invented Lisp in 1958, he adopted the lambda notation.
-There were no Greek letters on the keypunches of that era, so McCarthy used (`lambda (x) (+ x x)`), and it has survived to this day.
-In general, the form of a lambda expression is
+Alonzo Church queria uma String unidimensional, então ele colocou o acento circunflexo em frente: *^x*(*x + x*).
+O acento circunflexo parecia engraçado sem nada embaixo, então Church mudou para coisa mais próxima, uma lambda
+maiúscula, *&Lambda;x*(*x + x*).
+O &Lambda; é facilmente confundido com outros símbolos, então eventualmente, o lambda minúsculo foi o 
+substituto: *&lambda;x*(*x + x*). 
+John McCarthy era aluno de Church em Princeton, então quando McCarthy inventou Lisp em 1958, ele adotou a notação lambda.
+
+Não havia letras Gregas nas teclas dessa época, então McCarthy usou `(lambda (x) (+ x x))`, e isso sobreviveu até hoje.
+Em geral, o formulário de uma expressão lambda é:
 
 ```lisp
 (lambda (*parameters...*) *body...*)
 ```
 
-A lambda expression is just a nonatomic *name* for a function, just as `append` is an atomic name for a built-in function.
-As such, it is appropriate for use in the first position of a function call, but if we want to get at the actual function, rather than its name, we still have to use the `#'` notation.
-For example:
+A expressão lambda é apenas um nome (o *name* do formulário `defun`) não atômico para uma função, assim como `append` é
+um nome atômico para uma função embutida.
+Sendo assim, é apropriado para o uso na primeira posição de uma chamada de função, mas se queremos chegar a função real,
+e não ao nome, ainda precisamos usar a notação `#'`.
+Por exemplo:
 
 ```lisp
 > ((lambda (x) (+ x 2)) 4) => 6
@@ -805,19 +821,22 @@ For example:
 > (funcall #'(lambda (x) (+ x 2)) 4) => 6
 ```
 
-To understand the distinction we have to be clear on how expressions are evaluated in Lisp.
-The normal rule for evaluation states that symbols are evaluated by looking up the value of the variable that the symbol refers to.
-So the `x` in `(+ x 2)` is evaluated by looking up the value of the variable named `x`.
-A list is evaluated in one of two ways.
-If the first element of the list is a special form operator, then the list is evaluated according to the syntax rule for that special form.
-Otherwise, the list represents a function call.
-The first element is evaluated in a unique way, as a function.
-This means it can either be a symbol or a lambda expression.
-In either case, the function named by the first element is applied to the values of the remaining elements in the list.
-These values are determined by the normal evaluation rules.
-If we want to refer to a function in a position other than the first element of a function call, we have to use the `#'` notation.
-Otherwise, the expressions will be evaluated by the normal evaluation rule, and will not be treated as functions.
-For example:
+Para entender a diferença, precisamos esclarecer como as expressões são avaliadas no Lisp.
+A regra normal para avaliação afirma que os símbolos são avaliados consultando o valor da variável a que o símbolo 
+se refere.
+Portanto, o `x` em `(+ x 2)` é avaliado consultando o valor da variável chamada `x`.
+Uma lista é avaliada de uma de duas maneiras.
+Se o primeiro elemento da lista é um operador de formulário especial, então a lista é avaliada de acordo com a regra
+de sintaxe para esse formulário especial.
+Caso contrário, a lista representa uma chamada de função.
+O primeiro elemento é avaliado de uma maneira única, como uma função.
+Isso significa que podemos ter um símbolo ou uma expressão lambda.
+Nos dois casos, a função nomeada pelo primeiro elemento é aplicada aos valores dos elementos restantes da lista.
+Esses valores são determinados pelas regras normais de avaliação.
+Se quisermos nos referir a uma função em uma posição que não seja o primeiro elemento de uma chamada de função,
+precisamos usar a notação `#'`.
+Caso contrário, as expressões serão valiadas pela regra normal de avaliação, e não irá ser tratada como funções.
+Por exemplo:
 
 ```lisp
 > append => *Error: APPEND is not a bound variable*
@@ -825,7 +844,7 @@ For example:
 > (lambda (x) (+ x 2)) => *Error: LAMBDA is not a function*
 ```
 
-Here are some more examples of the correct use of functions:
+Aqui temos mais alguns exemplos do uso correto de funções:
 
 ```lisp
 >(mapcar #'(lambda (x) (+ x x))
@@ -837,17 +856,19 @@ Here are some more examples of the correct use of functions:
 ((1 2 3) (3 2 1) (A B C) (C B A))
 ```
 
-Programmers who are used to other languages sometimes fail to see the point of lambda expressions.
-There are two reasons why lambda expressions are very useful.
+Programadores que estão acostumados a outras linguagens às vezes falham em ver o ponto das 
+expressões lambda.
+Existem duas razões porque expressões lambda são muito úteis.
 
-First, it can be messy to clutter up a program with superfluous names.
-Just as it is clearer to write `(a+b)*(c+d)` rather than to invent variable names like `temp1` and `temp2` to hold `a+b` and `c+d`, so it can be clearer to define a function as a lambda expression rather than inventing a name for it.
+Primeiro, pode ser confuso desorganizar um programa com nomes supérfluos.
+Assim como é mais claro escrever `(a+b)*(c+d)` ao invés de inventar nomes como `temp1` e `temp2` para guardar `a+b` e
+`c+d`, por isso pode ser mais claro definir uma função como uma expressão lambda do que inventar nomes para ela.
 
-Second, and more importantly, lambda expressions make it possible to create new functions at run time.
-This is a powerful technique that is not possible in most programming languages.
-These run-time functions, known as *closures,* will be covered in section 3.16.
+Segundo, e mais importante, as expressões lambda tornam possível criar novas funções em tempo de execução.
+Isso é uma técnica poderosa que não é possível na maioria das linguagens de programação.
+Essas funções de tempo de execução, conhecidas como encerramentos/fechamentos (closures), serão abordadas na seção 3.16.
 
-## 1.8 Other Data Types
+## 1.8 Outros tipos de dados
 
 So far we have seen just four kinds of Lisp objects: numbers, symbols, lists, and functions.
 Lisp actually defines about 25 different types of objects: vectors, arrays, structures, characters, streams, hash tables, and others.
