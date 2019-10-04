@@ -987,59 +987,66 @@ da variável.
 
 ## 1.10 O que torna o Lisp diferente?
 
-What is it that sets Lisp apart from other languages?
-Why is it a good language for AI applications?
-There are at least eight important factors:
+O que é que diferencia Lisp de outras linguagens?
+Porque é uma boa linguagem para aplicações de IA?
+Há pelo menos oito fatores importantes:
 
-*   Built-in Support for Lists
-*   Automatic Storage Management
-*   Dynamic Typing
-*   First-Class Functions
-*   Uniform Syntax
-*   Interactive Environment
-*   Extensibility
-*   History
+*   Suporte embutido para listas
+*   Gerenciamento automático de armazenamento
+*   Tipagem dinâmica
+*   Funções de Primeira Classe
+*   Sintaxe uniforme
+*   Ambiente interativo
+*   Extensibilidade
+*   História
 
-In sum, these factors allow a programmer to delay making decisions.
-In the example dealing with names, we were able to use the built-in list functions to construct and manipulate names without making a lot of explicit decisions about their representation.
-If we decided to change the representation, it would be easy to go back and alter parts of the program, leaving other parts unchanged.
+Em suma, esses fatores permitem que um programador adie a tomada de decisões.
+No exemplo de lidar com nomes, fomos capazes de usar as funções embutidas para manipulação de listas para construir e
+manipular nomes sem tomar um monte de decisões explícitas sobre sua representação.
+Se decidimos mudar a representação, seria fácil voltar e alterar partes do programa, deixando outras partes
+inalteradas.
 
-This ability to delay decisions-or more accurately, to make temporary, nonbinding decisions-is usually a good thing, because it means that irrelevant details can be ignored.
-There are also some negative points of delaying decisions.
-First, the less we tell the compiler, the greater the chance that it may have to produce inefficient code.
-Second, the less we tell the compiler, the less chance it has of noticing inconsistencies and warning us.
-Errors may not be detected until the program is run.
-Let's consider each factor in more depth, weighing the advantages and disadvantages:
+Essa habilidade de adiar decisões, ou com mais precisão, tomar temporariamente, decisões não vinculativas, geralmente é
+uma coisa boa, porque isso significa que detalhes irrelevantes podem ser ignorados.
+Existem também alguns pontos negativos no adiamento de decisões.
+Primeiro, quanto menos dissermos ao compilador, maior é chance dele produzir código ineficiente.
+Segundo, quanto menos dissermos ao compilador, menor é a chance dele perceber inconsistências e nos avisar.
+Os erros podem não ser detectados até que o programa seja executado.
+Vamos considerar cada fator com mais profundidade, pesando suas vantagens e desvantagens:
 
-*   *Built-in Support for Lists.*
-The list is a very versatile data structure, and while lists can be implemented in any language, Lisp makes it easy to use them.
-Many AI applications involve lists of constantly changing size, making fixed-length data structures like vectors harder to use.
-Early versions of Lisp used lists as their only aggregate data structure.
-Common Lisp provides other types as well, because lists are not always the most efficient choice.
+*   *Suporte embutido para listas.*
+A lista é uma estrutura de dados muito versátil, e embora listas podem ser implementadas em qualquer linguagem, Lisp
+facilita o uso delas.
+Muitas aplicações de IA envolvem listas que constantemente têm seu tamanho alterado, tornando as estruturas de tamanho fixo como
+vetores de difícil uso.
+As versões iniciais do Lisp usavam listas como sua única estrutura de dados agregada.
+Common Lisp fornece outros tipos, porque listas não são sempre a escolha mais eficiente.
 
-*   *Automatic Storage Management.*
-The Lisp programmer needn't keep track of memory allocation; it is all done automatically.
-This frees the programmer of a lot of effort, and makes it easy to use the functional style of programming.
-Other languages present programmers with a choice.
-Variables can be allocated on the stack, meaning that they are created when a procedure is entered, and disappear when the procedure is done.
-This is an efficient use of storage, but it rules out functions that return complex values.
-The other choice is for the programmer to explicitly allocate and free storage.
-This makes the functional style possible but can lead to errors.
+*   *Gerenciamento automático de armazenamento.*
+O programador Lisp não precisa acompanhar a alocação de memória; tudo é feito automaticamente.
+Isso liberta o programador de um monte de esforço, e facilita o uso de programação funcional.
+Outras linguagens presenteiam aos programadores com uma escolha.
+Variáveis podem ser alocadas na pilha, o que significa que elas são criadas quando o procedimento é inserido, e desaparece
+quando o procedimento é concluído.
+Esse é um uso eficiente do armazenamento, com exceção de funções que retornam valores complexos.
+A outra escolha é o programador explicitamente alocar e liberar armazenamento.
+Isso faz a programação funcional ser possível, mas pode levar a erros.
 
-For example, consider the trivial problem of computing the expression *a* x (b + c), where *a*, *b*, and *c* are numbers.
-The code is trivial in any language; here it is in Pascal and in Lisp:
+Por exemplo, considere o simples problema de calcular a expressão *a* x (*b* + *c*), onde *a*, *b* e *c* são números.
+O código é trivial em qualquer linguagem, aqui temos em Pascal e em Lisp:
 
 | []()           |                 |
 |----------------|-----------------|
 | `/* Pascal */` | `;;; Lisp`      |
 | `a * (b + c)`  | `(* a (+ b c))` |
 
-The only difference is that Pascal uses infix notation and Lisp uses prefix.
-Now consider computing *a* x (b + c) when *a*, *b*, and *c* are matrices.
-Assume we have procedures for matrix multiplication and addition.
-In Lisp the form is exactly the same; only the names of the functions are changed.
-In Pascal we have the choice of approaches mentioned before.
-We could declare temporary variables to hold intermediate results on the stack, and replace the functional expression with a series of procedure calls:
+A única diferença é que Pascal usa notação infixa e Lisp usa prefixa.
+Considere agora calcular *a* x (*b* + *c*), onde *a*, *b* e *c* são matrizes.
+Suponha que temos procedimentos para multiplicação e adição de matrizes.
+No Lisp a forma é exatamente a mesma; apenas os nomes das funções irão mudar.
+Em Pascal nós temos a escolha das abordagens mencionadas anteriormente.
+Poderíamos declarar variáveis temporárias para manter resultados intermediários na pilha (stack), e substituir a
+expressão funcional com uma série de chamadas de procedimentos:
 
 | []()                        |                      |
 |-----------------------------|----------------------|
@@ -1049,9 +1056,9 @@ We could declare temporary variables to hold intermediate results on the stack, 
 | `mult(a,temp,result);`      |                      |
 | `return(result);`           |                      |
 
-The other choice is to write Pascal functions that allocate new matrices on the heap.
-Then one can write nice functional expressions like `mult(a,add(b,c))` even in Pascal.
-However, in practice it rarely works this nicely, because of the need to manage storage explicitly:
+A outra escolha é escrever funções em Pascal que alocam novas matrizes no monte (heap).
+Então pode-se escrever boas expressões funcionais como `mult(a,add(b,c))` mesmo em Pascal.
+Contudo, na prática raramente isso funciona, por causa da necessidade de manipular o armazenamento explicitamente: 
 
 | []()                     |                      |
 |--------------------------|----------------------|
@@ -1062,61 +1069,85 @@ However, in practice it rarely works this nicely, because of the need to manage 
 | `free(x);`               |                      |
 | `return(y);`             |                      |
 
-In general, deciding which structures to free is a difficult task for the Pascal programmer.
-If the programmer misses some, then the program may run out of memory.
-Worse, if the programmer frees a structure that is still being used, then strange errors can occur when that piece of memory is reallocated.
-Lisp automatically allocates and frees structures, so these two types of errors can *never* occur.
+No geral, decidir quais estruturas liberar é uma dificuldade difícil para o programador Pascal.
+Se o programador perder algo, então o programa pode ficar sem memória.
+Pior ainda, se o programador liberar uma estrutura que ainda está sendo usada, então erros estranhos podem ocorrer quando
+esse pedaço da memória é realocado.
+Lisp automaticamente aloca e libera estruturas, para que esses dois tipos de erros *nunca* ocorram.
 
-*   *Dynamic Typing.*
-Lisp programmers don't have to provide type declarations, because the language keeps track of the type of each object at run time, rather than figuring out all types at compile time.
-This makes Lisp programs shorter and hence faster to develop, and it also means that functions can often be extended to work for objects to which they were not originally intended to apply.
-In Pascal, we can write a procedure to sort an array of 100 integers, but we can't use that same procedure to sort 200 integers, or 100 strings.
-In Lisp, one `sort` fits all.
-One way to appreciate this kind of flexibility is to see how hard it is to achieve in other languages.
-It is impossible in Pascal; in fact, the language Modula was invented primarily to fix this problem in Pascal.
-The language Ada was designed to allow flexible generic functions, and a book by Musser and Stepanov (1989) describes an Ada package that gives some of the functionality of Common Lisp's sequence functions.
-But the Ada solution is less than ideal: it takes a 264-page book to duplicate only part of the functionality of the 20-page chapter 14 from Steele (1990), and Musser and Stepanov went through five Ada compilers before they found one that would correctly compile their package.
-Also, their package is considerably less powerful, since it does not handle vectors or optional keyword parameters.
-In Common Lisp, all this functionality comes for free, and it is easy to add more.
-On the other hand, dynamic typing means that some errors will go undetected until run time.
-The great advantage of strongly typed languages is that they are able to give error messages at compile time.
-The great frustration with strongly typed languages is that they are only able to warn about a small class of errors.
-They can tell you that you are mistakenly passing a string to a function that expects an integer, but they can't tell you that you are passing an odd number to a function that expects an even number.
+*   *Tipagem dinâmica.*
+Os programadores Lisp não têm que fornecer declarações de tipo, porque a linguagem mantém o controle dos tipos de cada
+objeto em tempo de execução, em vez de figurar todos os tipos em tempo de compilação.
+Isso torna os programas Lisp curtos e, consequentemente, mais rápido de desenvolver, e isso também significa que as 
+funções podem frequentemente ser estendidos para trabalhar com objetos aos quais eles não foram originalmente 
+destinados a trabalhar. 
+No Pascal, podemos escrever um procedimento para classificar uma matriz de 100 inteiros, mas não podemos usar o mesmo
+procedimento para classificar 200 inteiros, ou 100 cadeias de caráteres.
+No Lisp, um `sort` serve para todos.
+O caminho apreciado desse tipo de flexibilidade é ver quão difícil é alcançar isso em outras linguagens.
+Isso é impossível em Pascal; em fato, a linguagem Modula foi inventada principalmente para corrigir esse problema em
+Pascal.
+A linguagem Ada foi designada a permitir funções genéricas flexíveis, e um livro por Musser e Stepanov (1989) descreve um
+pacote Ada que dá algumas das funcionalidades das funções de sequência do Common Lisp.
+Mas a solução de Ada está abaixo do ideal: é necessário um livro de 264 páginas para duplicar apenas uma parte da
+funcionalidade do capítulo 14 de 20 páginas de Steele (1990), e Musser e Stepanov passaram por cinco compiladores Ada
+antes de encontrar um que compilasse corretamente seu pacote.
+Também, seus pacotes eram considerados menos poderosos, pois não trata de vetores ou parâmetros de palavra-chave opcionais.
+Em Common Lisp, toda essa funcionalidade vem de graça, e é fácil adicionar mais.
+Por outro lado, a tipagem dinâmica significa que alguns erros não serão detectados até o tempo de execução.
+A grande vantagem de linguagens fortemente tipadas é que elas permitem obter mensagens de erros em tempo de compilação.
+A grande frustração com linguagens fortemente tipadas é que elas apenas permitem alertar sobre uma pequena classe de
+erros.
+Elas podem dizer que você está passando erroneamente uma cadeia de caracteres para uma função que espera um inteiro, mas
+elas não pode dizer que você está passando um número ímpar para a função que espera um número par.
 
-*   *First-Class Functions.*
-A *first-class* object is one that can be used anywhere and can be manipulated in the same ways as any other kind of object.
-In Pascal or C, for example, functions can be passed as arguments to other functions, but they are not first-class, because it is not possible to create new functions while the program is running, nor is it possible to create an anonymous function without giving it a name.
-In Lisp we can do both those things using `lambda`.
-This is explained in section 3.16, page 92.
+*   *Funções de Primeira Classe.*
+O objeto de *Primeira Classe* é que pode ser usado em qualquer lugar e pode ser manipulado da mesma maneira que qualquer
+outro tipo de objeto.
+Em Pascal ou C, por exemplo, funções podem ser passadas como argumentos para outras funções, mas elas não são funções de
+primeira classe, porque não é possível criar novas funções enquanto o programa é executado, nem é possível criar funções
+anônimas sem dar um nome.
+No Lisp podemos fazer essas mesmas coisas usando `lambda`.
+Isso é explicado na seção 3.16, na página 92.
 
-*   *Uniform Syntax.*
-The syntax of Lisp programs is simple.
-This makes the language easy to learn, and very little time is wasted correcting typos.
-In addition, it is easy to write programs that manipulate other programs or define whole new languages-a very powerful technique.
-The simple syntax also makes it easy for text editing programs to parse Lisp.
-Your editor program should be able to indent expressions automatically and to show matching parentheses.
-This is harder to do for languages with complex syntax.
-On the other hand, some people object to all the parentheses.
-There are two answers to this objection.
-First, consider the alternative: in a language with "conventional" syntax, Lisp's parentheses pairs would be replaced either by an implicit operator precedence rule (in the case of arithmetic and logical expressions) or by a `begin/end` pair (in the case of control structures).
-But neither of these is necessarily an advantage.
-Implicit precedence is notoriously error-prone, and `begin/end` pairs clutter up the page without adding any content.
-Many languages are moving away from `begin/end: C` uses { and }, which are equivalent to parentheses, and several modern functional languages (such as Haskell) use horizontal blank space, with no explicit grouping at all.
-Second, many Lisp programmers *have* considered the alternative.
-There have been a number of preprocessors that translate from "conventional" syntax into Lisp.
-None of these has caught on.
-It is not that Lisp programmers find it *tolerable* to use all those parentheses, rather, they find it *advantageous.*
-With a little experience, you may too.
-It is also important that the syntax of Lisp data is the same as the syntax of programs.
-Obviously, this makes it easy to convert data to program.
-Less obvious is the time saved by having universal functions to handle input and output.
-The Lisp functions `read` and `print` will automatically handle any list, structure, string, or number.
-This makes it trivial to test individual functions while developing your program.
-In a traditional language like C or Pascal, you would have to write special-purpose functions to read and print each data type you wanted to debug, as well as a special-purpose driver to call the routines.
-Because this is time-consuming and error-prone, the temptation is to avoid testing altogether.
-Thus, Lisp encourages better-tested programs, and makes it easier to develop them faster.
+*   *Sintaxe uniforme.*
+A sintaxe dos programas Lisp é simples.
+Isso facilita o aprendizado da linguagem, assim desperdiçando muito pouco tempo para corrigir erros de tipos.
+Além disso, é fácil escrever programas que manipulam outro programas ou que definem linguagens totalmente novas, qual é uma
+técnica muito poderosa.
+A sintaxe simples também facilita a análise de Lisp por programas de edição de texto.
+Seu programa editor deve poder recuar expressões automaticamente e mostrar parênteses correspondentes.
+Isso é mais difícil de fazer em linguagens com sintaxe complexa.
+Por outro lado, algumas pessoas se opõem a todos os parênteses.
+Existem duas respostas para essa objeção.
+Primeiro, considere a alternativa: uma linguagem com sintaxe "convencional", os pares de parênteses do Lisp seriam
+substituídos por uma regra implícita de precedência do operador (no caso de expressões aritméticas e lógicas) ou por um par de
+`being/end`, no português, `início/fim` (no caso de estruturas de controle).
+Mas nenhuma delas é necessariamente uma vantagem.
+A precedência implícita é notoriamente propensa a erros, e os pares de `begin/end` bagunçam a página sem adicionar
+nenhum conteúdo.
+Muitas linguagens estão se afastando do `begin/end`, C usa `{}`, que são equivalentes a parênteses, e várias linguagens
+funcionais modernas (como Haskell) usam espaços em branco horizontal, sem nenhum agrupamento explícito.
+Segundo, muitos programadores Lisp *têm* considerado a alternativa.
+Existem diversos pré-processadores que convertem a sintaxe "convencional" para o Lisp.
+Nada disso pegou.
+Não é que os programadores Lisp acham *tolerável* usar todos esses parênteses, pelo contrário, eles acham *vantajoso*.
+E com um pouco de experiência, você também achará.
+Também é importante que a sintaxe dos dados do Lisp seja a mesma que a dos programas.
+Obviamente, isso facilita a conversão de dados em programas.
+Menos óbvio é o tempo economizado por ter funções universais para lidar com entrada e saída.
+As funções de Lisp `read` e `print` irão lidar automaticamente com qualquer lista, estrutura, cadeia de caracteres ou números.
+Isso torna trivial testar funções individuais enquanto você desenvolve seu programa.
+Em uma linguagem tradicional como C ou Pascal, você teria que escrever funções de propósito especial para ler e imprimir
+cada tipo de dados que desejasse depurar, além de um driver de propósito especial para chamar as rotinas.
+Como isso consome tempo e é propenso a erros, a tentação é evitar os testes completamente.
+Portanto, Lisp encoraja programas melhor testados, e facilita o desenvolvimento rápido.
 
-*   *Interactive Environment.*
+
+*   Extensibilidade
+*   História
+
+*   *Ambiente interativo.*
 Traditionally, a programmer would write a complete program, compile it, correct any errors detected by the compiler, and then run and debug it.
 This is known as the *batch* mode of interaction.
 For long programs, waiting for the compiler occupied a large portion of the debugging time.
