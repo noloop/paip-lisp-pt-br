@@ -1028,7 +1028,7 @@ Isso liberta o programador de um monte de esforço, e facilita o uso de programa
 Outras linguagens presenteiam aos programadores com uma escolha.
 Variáveis podem ser alocadas na pilha, o que significa que elas são criadas quando o procedimento é inserido, e desaparece
 quando o procedimento é concluído.
-Esse é um uso eficiente do armazenamento, com exceção de funções que retornam valores complexos.
+Esse é um uso eficiente do armazenamento, mas exclui funções que retornam valores complexos.
 A outra escolha é o programador explicitamente alocar e liberar armazenamento.
 Isso faz a programação funcional ser possível, mas pode levar a erros.
 
@@ -1143,47 +1143,54 @@ cada tipo de dados que desejasse depurar, além de um driver de propósito espec
 Como isso consome tempo e é propenso a erros, a tentação é evitar os testes completamente.
 Portanto, Lisp encoraja programas melhor testados, e facilita o desenvolvimento rápido.
 
-
-*   Extensibilidade
-*   História
-
 *   *Ambiente interativo.*
-Traditionally, a programmer would write a complete program, compile it, correct any errors detected by the compiler, and then run and debug it.
-This is known as the *batch* mode of interaction.
-For long programs, waiting for the compiler occupied a large portion of the debugging time.
-In Lisp one normally writes a few small functions at a time, getting feedback from the Lisp system after evaluating each one.
-This is known as an *interactive* environment.
-When it comes time to make a change, only the changed functions need to be recompiled, so the wait is much shorter.
-In addition, the Lisp programmer can debug by typing in arbitrary expressions at any time.
-This is a big improvement over editing the program to introduce print statements and recompiling.
-Notice that the distinction between *interactive* and a *batch* languages is separate from the distinction between *interpreted* and *compiled* languages.
-It has often been stated, incorrectly, that Lisp has an advantage by virtue of being an interpreted language.
-Actually, experienced Common Lisp programmers tend to use the compiler almost exclusively.
-The important point is interaction, not interpretation.
-The idea of an interactive environment is such a good one that even traditional languages like C and Pascal are starting to offer interactive versions, so this is not an exclusive advantage of Lisp.
-However, Lisp still provides much better access to the interactive features.
-A C interpreter may allow the programmer to type in an expression and have it evaluated immediately, but it will not allow the programmer to write a program that, say, goes through the symbol table and finds all the user-defined functions and prints information on them.
-In C-even interpreted C-the symbol table is just a Cheshire-cat-like invention of the interpreter's imagination that disappears when the program is run.
+Tradicionalmente, um programador escreveria um programa completo primeiro, e depois iria compilar o programa escrito, 
+depois corrigiria qualquer erro detectado pelo compilador, e então o executaria e depuraria.
+Isso é conhecido como modo *lote* de interação.
+Para longos programas, aguardar o compilador terminar seu trabalho ocupava grande parte do tempo da depuração.
+No Lisp, normalmente se escreve pequenas funções de cada vez, obtendo o feedback do sistema Lisp após avaliar cada uma
+delas.
+Isso é conhecido ambiente *interativo*.
+Quando chega a hora de fazer uma alteração, apenas as funções alteradas precisam ser recompiladas, portanto a espera é muito menor.
+Além disso, o programador Lisp pode depurar digitando expressões arbitrárias a qualquer momento.
+Isso é uma grande melhoria em relação a edição de programas para introduzir instruções de impressão e depois ter que
+recompilar tudo novamente.
+Aviso que a distinção entre uma linguagem *interativa* e uma linguagem de *lote* é diferente da distinção entre
+linguagens *interpretadas* e *compiladas*.
+Muitas vezes foi afirmado, incorretamente, que Lisp tem uma vantagem em virtude de ser uma linguagem interpretada.
+Atualmente, experientes programadores Common Lisp tendem a usar o compilador quase exclusivamente. 
+O importante ponto é interação, não interpretação.
+A idéia de um ambiente interativo é tão boa que até mesmo idiomas tradicionais como C e Pascal estão começando a 
+oferecer versões interativas, portanto, essa não é uma vantagem exclusiva do Lisp.
+No entanto, o Lisp ainda oferece um acesso muito melhor aos recursos interativos.
+Um interpretador C permite o programador digitar uma expressão e a avaliar imediatamente, mas isso não irá
+permitir o programador escrever um programa que, digamos, atravessa a tabela de símbolos e encontre todas as funções
+definidas pelo usuário e imprime informações sobre elas.
 <a id="tfn01-7"></a>
-In Lisp, the symbol table is a first-class object[7](#fn01-7) that can be accessed and modified with functions like `read, intern` and `do-symbols`.
-Common Lisp offers an unusually rich set of useful tools, including over 700 built-in functions (ANSI Common Lisp has over 900).
-Thus, writing a new program involves more gathering of existing pieces of code and less writing of new code from scratch.
-In addition to the standard functions, Common Lisp implementations usually provide extensions for interacting with the editor, debugger, and window system.
+No Lisp, a tabela de símbolo é um *Objeto de Primeira Classe*[7](#fn01-7) que pode ser acessado e modificado com funções
+como: `read`, `intern` e `do-symbols`.
+Common Lisp oferece um conjunto extraordinariamente rico de ferramentas úteis, incluindo mais de 700 funções embutidas
+(ANSI Common Lisp tem mais de 900).
+Assim, escrever um novo programa envolve mais coleta de partes de código existentes e menos escrever novos códigos a
+partir do zero.
+Além disso, para as funções padrões, as implementações Common Lisp normalmente oferecem extensões para interação com o
+editor, depurador e sistema de janelas.
 
-*   *Extensibility*.
-When Lisp was invented in 1958, nobody could have foreseen the advances in programming theory and language design that have taken place in the last thirty years.
-Other early languages have been discarded, replaced by ones based on newer ideas.
-However, Lisp has been able to survive, because it has been able to adapt.
-Because Lisp is extensible, it has been changed to incorporate the newest features as they become popular.
-The easiest way to extend the language is with macros.
-When so-called structured programming constructs such as *case* and *if-then-else* arose, they were incorporated into Lisp as macros.
-But the flexibility of Lisp goes beyond adding individual constructs.
-Brand new styles of programming can easily be implemented.
-Many AI applications are based on the idea of *rule-based* programming.
+*   *Extensibilidade*.
+Quando Lisp foi inventado em 1958, ninguém poderia prever os avanços na teoria da programação e no design de linguagem
+que ocorreram nos últimos trinta anos.
+Outras linguagens antigas foram descartadas, substituídas por outras baseadas em idéias mais recentes.
+No entanto, o Lisp é extensivo, e foi alterado para incorporar os novos recursos que se tornaram populares.
+A maneira mais fácil para estender a linguagem é com macros.
+Quando as construções de programação estruturada como *case* e *if-then-else* surgiram, elas foram incorporadas ao Lisp como macros.
+Mas a flexibilidade do Lisp vai além de adicionar construções individuais.
+Novos estilos de programação podem ser facilmente implementados.
+Muitas aplicações de IA são baseadas na ideia de programação *baseadas em regras*.
 <a id="tfn01-8"></a>
-Another new style is *object-oriented* programming, which has been incorporated with the Common Lisp Object System (CLOS),[8](#fn01-8) a set of macros, functions, and data types that have been integrated into ANSI Common Lisp.
+Outro novo estilo é a programação *orientada a objetos*, que foi incorporada com o Common Lisp Object System
+(CLOS)[8](#fn01-8), um conjunto de macros, funções, e tipos de dados que tem sido integrado no ANSI Common Lisp.
 
-To show how far Lisp has come, here's the only sample program given in the *Lisp/MTS Programmer's Guide* (Hafner and Wilcox 1974):
+Para mostrar até que ponto o Lisp chegou, aqui está um programa de amostra fornecido no *Lisp/MTS Programmer's Guide* (Hafner and Wilcox 1974:
 
 ```lisp
 (PROG (LIST DEPTH TEMP RESTLIST)
@@ -1204,8 +1211,8 @@ A (COND
 ))))(GO A))
 ```
 
-Note the use of the now-deprecated goto `(GO)` statement, and the lack of consistent indentation conventions.
-The manual also gives a recursive version of the same program:
+Note o uso da obsoleta instrução goto `(GO)`, e a falta de convenções de recuo consistente.
+O manual também fornece uma recursiva versão do mesmo programa:
 
 ```lisp
 (PROG NIL (
@@ -1224,8 +1231,8 @@ The manual also gives a recursive version of the same program:
 (LIST (CONS (READ) 0))))
 ```
 
-Both versions are very difficult to read.
-With our modern insight (and text editors that automatically indent), a much simpler program is possible:
+Ambas versões são muito difíceis de ler.
+Com nossa visão moderna (e editores de texto que recuam automaticamente), é possível um programa muito mais simples:
 
 ```lisp
 (defun atomprint (exp &optional (depth 0))
@@ -1236,31 +1243,60 @@ With our modern insight (and text editors that automatically indent), a much sim
         (atomprint element (+ depth 1)))))
 ```
 
-## 1.11 Exercises
+## 1.11 Exercícios
 
-&#9635; **Exercise  1.1 [m]** Define a version of `last-name` that handles "Rex Morgan MD," "Morton Downey, Jr.," and whatever other cases you can think of.
+&#9635; **Exercício  1.1 [m]** Define uma versão da `last-name` que lida com "Rex Morgan MD," "Morton Downey, Jr.," e quaisquer outros casos que você
+possa pensar.
 
-&#9635; **Exercise  1.2 [m]** Write a function to exponentiate, or raise a number to an integer power.
-For example: `(power 3 2)` = 3<sup>2</sup> = 9.
+&#9635; **Exercício  1.2 [m]** Escreva uma função para exponenciar ou aumentar um número para uma potência inteira. Por exemplo: `(power 3 2)` = 3<sup>2</sup> = 9.
 
-&#9635; **Exercise  1.3 [m]** Write a function that counts the number of atoms in an expression.
-For example: `(count-atoms '(a (b) c)) = 3`.
-Notice that there is something of an ambiguity in this: should (`a nil c`) count as three atoms, or as two, because it is equivalent to (`a () c`)?
+&#9635; **Exercício  1.3 [m]** 
+Escreva uma função que conte o número de átomos em uma expressão. Por exemplo: `(count-atoms '(a (b) c)) = 3`.
+Observe que há algo de ambiguidade nisso: deve (`a nil c`) contar como três átomos ou como dois, porque é equivalente a (`a () c`)?
 
-&#9635; **Exercise  1.4 [m]** Write a function that counts the number of times an expression occurs anywhere within another expression.
-Example: `(count-anywhere 'a '(a ((a) b) a)) => 3.`
+&#9635; **Exercício  1.4 [m]** 
+Escreva uma função que conte o número de vezes que uma expressão ocorre em qualquer lugar dentro de outra expressão.
+Exemplo: `(count-anywhere 'a '(a ((a) b) a)) => 3.`
 
-&#9635; **Exercise  1.5 [m]** Write a function to compute the dot product of two sequences of numbers, represented as lists.
-The dot product is computed by multiplying corresponding elements and then adding up the resulting products.
-Example:
+&#9635; **Exercício  1.5 [m]** 
+Escreva uma função para computar o produto escalar de duas sequências de números, representados como listas.
+O produto escalar é calculado multiplicando os elementos correspondentes e adicionando os produtos resultantes. 
+Exemplo:
 
 ```lisp
 (dot-product '(10 20) '(3 4)) = 10 x 3 + 20 x 4 = 110
 ```
 
-## 1.12 Answers
+## 1.12 Repostas
 
-### Answer 1.2
+### Resposta 1.1
+
+Essa questão não foi respondida no livro em Inglês, então eu (@noloop) resolvi 
+respondê-la aqui nesta versão em português do PAIP Lisp.
+Veja que existem muitos caminhos para responder essa questão, mas me baseando na 
+função `last-name` que foi apresentada anteriormente, tratei cada nome como um 
+símbolo em uma lista de símbolos, desconsiderando vírgulas e pontos, 
+assim como Norvig fez na sua versão de `last-name`. 
+
+```lisp
+(defvar *titles*
+  '(Mr Mrs Miss Ms Sir MD Jr Madam Dr Admiral Major General)
+  "A list of titles that can appear at the start of a name.")
+
+(defun last-name (fullname)
+  "Return lastname for fullname excluding when they are titles.
+   Examples: (last-name '(Morton Downey Jr)) => Downey
+             (last-name '(Rex Morgan MD)) => Morgan
+             (last-name '(MD Jr)) => NIL"
+  (let ((lastname (first (last fullname))))
+    (cond ((null fullname) nil)
+	  ((find lastname *titles*) (last-name (reverse (cdr (reverse fullname)))))
+	  (t lastname))))
+
+```
+
+### Resposta 1.2
+
 ```lisp
 (defun power (x n)
   "Power raises x to the nth power.  N must be an integer >= 0.
@@ -1270,7 +1306,7 @@ Example:
         (t (* x (power x (- n 1))))))
 ```
 
-### Answer 1.3
+### Resposta 1.3
 
 ```lisp
 (defun count-atoms (exp)
@@ -1289,7 +1325,7 @@ Example:
               (count-all-atoms (rest exp) 0)))))
 ```
 
-### Answer 1.4
+### Resposta 1.4
 
 ```lisp
 (defun count-anywhere (item tree)
@@ -1300,9 +1336,9 @@ Example:
               (count-anywhere item (rest tree))))))
 ```
 
-### Answer 1.5
-Here are three versions:
+### Resposta 1.5
 
+Aqui estão três versões:
 
 ```lisp
 (defun dot-product (a b)
@@ -1327,31 +1363,33 @@ Here are three versions:
 ----------------------
 
 <a id="fn01-1"></a>
-[1](#tfn01-1) This list of symbols is not a legal Lisp assignment statement, but it is a Lisp data object.
+[1](#tfn01-1) Esta lista de símbolos não é uma instrução legal de Lisp, mas é um objeto de dados Lisp.
 
 <a id="fn01-2"></a>
-[2](#tfn01-2) The variable `*print-case*` controls how symbols will be printed.
-By default, the value of this variable is :`upcase`, but it can be changed to :`downcase` or `:capitalize`.
+[2](#tfn01-2) A variável `*print-case*` controla como símbolos irão ser imprimidos.
+Por padrão, o valor dessa variável é: `upcase`, mas isso pode ser alterado para: `downcase` or `:capitalize`
 
 <a id="fn01-3"></a>
-[3](#tfn01-3) Later we will see what happens when the second argument is not a list.
+[3](#tfn01-3) Mais tarde veremos o que acontece quando o segundo argumento não é uma lista.
 
 <a id="fn01-4"></a>
-[4](#tfn01-4) In ANSI Common Lisp, `last` is defined to return a list of the last *n* elements, where n defaults to 1.
-Thus `(last p) = (last p 1) = (PUBLIC)`,and `(last p 2) = (Q PUBLIC)`.
-This may make the definition of `last` seem less perverse.
+[4](#tfn01-4) Em ANSI Common Lisp, `last` é definido para retornar uma lista dos últimos *n* elementos, onde *n* por
+padrão é 1.
+Portanto `(last p) = (last p 1) = (PUBLIC)`, e `(last p 2) = (Q PUBLIC)`.
+Isso pode fazer que a definição de `last` pareça menos perversa.
 
 <a id="fn01-5"></a>
-[5](#tfn01-5) Just as we can change the value of a variable, we can also change the value of a function in Lisp.
-It is not necessary to recompile everything when a change is made, as it would be in other languages.
+[5](#tfn01-5) Assim como podemos alterar o valor de uma variável, nós podemos alterar também o valor de uma função no
+Lisp.
+Não é necessário recompilar tudo quando uma alteração é feita, como seria em outras linguagens.
 
 <a id="fn01-6"></a>
-[6](#tfn01-6) For example, symbols that denote so-called *special* variables usually begin and end in asterisks.
-Also, note that I did not hesitate to use the symbol `won!` on page 11.
+[6](#tfn01-6) Por exemplo, símbolos que usam `*` em suas extremidades são chamados de variáveis especiais. Por exemplo: `*special*`. 
+Também, perceba que eu não hesitei em usar o símbolo `won!` na página 11.
 
 <a id="fn01-7"></a>
-[7](#tfn01-7) Actually, there can be several symbol tables.
-They are known as *packages* in Common Lisp.
+[7](#tfn01-7) Atualmente, pode haver várias tabelas símbolos.
+Eles são conhecidos como *packages* no Common Lisp.
 
 <a id="fn01-8"></a>
-[8](#tfn01-8) Pronounced "see-loss." An alternate pronunciation, "klaus," seems to be losing favor.
+[8](#tfn01-8) Pronunciado "see-loss." Uma pronúncia alternativa, "klaus," parece está perdendo o favor.
