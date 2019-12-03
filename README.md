@@ -14,7 +14,7 @@ Você pode também querer conhecer o repositório do [livro oficial em inglês](
 Esse repositório está em desenvolvimento, algumas partes podem ainda não estarem traduzidas, ou inexistentes comparado
 ao repositório oficial em Inglês. 
 
-O seu tradutor [@noloop](https://github.com/noloop) está estudando inglẽs, aproveitou a oportunidade para estudar o livro
+O seu tradutor [@noloop](https://github.com/noloop) está estudando inglês, aproveitou a oportunidade para estudar o livro
 e também praticar o inglês ao mesmo tempo, caso perceba algo de errado, não deixe de me alertar abrindo um
 [novo problema](https://github.com/noloop/paip-lisp-pt-br/issues), você também pode abrir um problema se deseja ajudar com
 este repositório.

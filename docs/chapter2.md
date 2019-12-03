@@ -1,54 +1,68 @@
-# Chapter 2
-## A Simple Lisp Program
+# Capítulo 2
+## Um simples programa em Lisp
 
 > *Certum quod factum.*
 
-> (One is certain of only what one builds.)
+> (Só se sabe ao certo o que se constrói.)
 
 > -Giovanni Battista Vico (1668-1744)
 
-> Italian royal historiographer
+> Historiografista real italiano
 
-You will never become proficient in a foreign language by studying vocabulary lists.
-Rather, you must hear and speak (or read and write) the language to gain proficiency.
-The same is true for learning computer languages.
+Você nunca irá torna-se proficiente em uma linguagem estrangeira estudando listas de vocabulários.
+Em vez disso, você deve escutar e falar (ou ler e escrever) a linguagem para ganhar proficiência.
+O mesmo vale para o aprendizado de linguagens de computador.
 
-This chapter shows how to combine the basic functions and special forms of Lisp into a complete program.
-If you can learn how to do that, then acquiring the remaining vocabulary of Lisp (as outlined in chapter 3) will be easy.
+Esse capítulo mostra como combinar as funções básicas e formulários especiais do Lisp em um programa completo.
+Se você aprender como fazer isso, será fácil adquirir o vocabulário restante do Lisp (como descrito no capítulo 3).
 
-## 2.1 A Grammar for a Subset of English
+## 2.1 Gramática para um subconjunto de inglês
 
-The program we will develop in this chapter generates random English sentences.
-Here is a simple grammar for a tiny portion of English:
+O programa que desenvolveremos neste capítulo gera sentenças aleatórias em inglês.
+Aqui está uma gramática simples para uma pequena parte do inglês:
 
 > *Sentence* => *Noun-Phrase + Verb-Phrase*  
 > *Noun-Phrase* => *Article + Noun*  
 > *Verb-Phrase* => *Verb + Noun-Phrase*  
 > *Article* => *the, a,...*  
 > *Noun* => *man, ball, woman, table...*  
-> *Verb* => *hit, took, saw, liked...*
+> *Verb* => *hit, took, saw, liked...*  
 
-To be technical, this description is called a *context-free phrase-structure grammar*, and the underlying paradigm is called *generative syntax*.
-The idea is that anywhere we want a sentence, we can generate a noun phrase followed by a verb phrase.
-Anywhere a noun phrase has been specified, we generate instead an article followed by a noun.
-Anywhere an article has been specified, we generate either "the," "a," or some other article.
-The formalism is "context-free" because the rules apply anywhere regardless of the surrounding words, and the approach is "generative" because the rules as a whole define the complete set of sentences in a language (and by contrast the set of nonsentences as well).
-In the following we show the derivation of a single sentence using the rules:
+Tradução livre das palavras acima:
 
+Sentence = Sentença
+Noun-Phrase = Frase substantiva
+Verb-Phrase = Frase verbal
+Article = Artigo
+Noun = Substantivo
+Verb = Verbo
+the = a/o/as/os
+a = um/uma
+man, ball, woman, table = homem, bola, mulher, mesa
+hit, took, saw, liked = acertar, pegou, viu, gostou
 
-* To get a *Sentence,* append a *Noun-Phrase* and a *Verb-Phrase*
-  * To get a *Noun-Phrase*, append an *Article* and a *Noun*
-    * Choose *"the"* for the *Article*
-    * Choose *"man"* for the *Noun*
-  * The resulting *Noun-Phrase* is *"the man"*
-  * To get a *Verb-Phrase,* append a *Verb* and a *Noun-Phrase*
-    * Choose *"hit"* for the *Verb*
-    * To get a *Noun-Phrase*, append an *Article* and a *Noun*
-      * Choose *"the"* for the *Article*
-      * Choose *"ball"* for the *Noun*
-    * The resulting *Noun-Phrase* is *"the ball"*
-  * The resulting *Verb-Phrase* is *"hit the ball"*
-* The resulting *Sentence* is *"The man hit the ball"*
+Para ser técnico, esta descrição é chamada de "gramática de estrutura de frase sem contexto", e o paradigma subjacente é
+chamado "sintaxe generativa".
+A ideia é que onde quer que desejamos uma sentença, nós podemos gerar uma frase substantiva seguida por uma frase verbal.
+Onde quer que uma frase substantiva tenha sido especificada, geramos um artigo seguido por um substantivo.
+Onde quer que um artigo tenha sido especificado, nós geramos "the", "a", ou qualquer outro artigo.
+O formalismo é "livre de contexto" porque as regras se aplicam em qualquer lugar, independente das palavras ao redor, e a abordagem é "generativa"
+porque as regras como um todo definem o conjunto completo de sentenças em um idioma (e por contraste o conjunto de não sentenças também).
+A seguir, mostramos a derivação de uma única frase usando as regras:
+
+* Para obter uma *Sentença*, acrescente uma *Frase substantiva* e uma *Frase verbal*
+  * Para obter uma *Frase substantiva*, adicione um *Artigo* e um *Substantivo*
+    * Escolha *"the"* para o *Artigo*
+	* Escolha *"man"* para o *Substantivo*
+  * A *Frase substantiva* resultante é *"the man"*
+  * Para obter uma *Frase verbal*, acrescente um *Verbo* e uma *Frase substantiva*
+    * Escolha *"hit"* para o *Verbo*
+    * Para obter uma *Frase substantiva*, adicione um *Artigo* e um *Substantivo*
+      * Escolha *"the"* para o *Artigo*
+      * Escolha *"ball"* para o *Substantivo*
+    * A *Frase substantiva* resultante é *"the ball"*
+  * A *Frase verbal* resultante é *"hit the ball"*
+* A *Sentença* resultante é *"The man hit the ball"*
 
 ## 2.2 A Straightforward Solution
 
