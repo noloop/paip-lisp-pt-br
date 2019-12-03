@@ -30,16 +30,16 @@ Aqui está uma gramática simples para uma pequena parte do inglês:
 
 Tradução livre das palavras acima:
 
-Sentence = Sentença
-Noun-Phrase = Frase substantiva
-Verb-Phrase = Frase verbal
-Article = Artigo
-Noun = Substantivo
-Verb = Verbo
-the = a/o/as/os
-a = um/uma
-man, ball, woman, table = homem, bola, mulher, mesa
-hit, took, saw, liked = acertar, pegou, viu, gostou
+> Sentence = Sentença
+> Noun-Phrase = Frase substantiva
+> Verb-Phrase = Frase verbal
+> Article = Artigo
+> Noun = Substantivo
+> Verb = Verbo
+> the = a/o/as/os
+> a = um/uma
+> man, ball, woman, table = homem, bola, mulher, mesa
+> hit, took, saw, liked = acertar, pegou, viu, gostou
 
 Para ser técnico, esta descrição é chamada de "gramática de estrutura de frase sem contexto", e o paradigma subjacente é
 chamado "sintaxe generativa".
