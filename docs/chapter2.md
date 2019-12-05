@@ -30,16 +30,16 @@ Aqui está uma gramática simples para uma pequena parte do inglês:
 
 Tradução livre das palavras acima:
 
-> Sentence = Sentença
-> Noun-Phrase = Frase substantiva
-> Verb-Phrase = Frase verbal
-> Article = Artigo
-> Noun = Substantivo
-> Verb = Verbo
-> the = a/o/as/os
-> a = um/uma
-> man, ball, woman, table = homem, bola, mulher, mesa
-> hit, took, saw, liked = acertar, pegou, viu, gostou
+* **Sentence** = Sentença
+* **Noun-Phrase** = Frase substantiva
+* **Verb-Phrase** = Frase verbal
+* **Article** = Artigo
+* **Noun** = Substantivo
+* **Verb** = Verbo
+* **the** = a/o/as/os
+* **a** = um/uma
+* **man, ball, woman, table** = homem, bola, mulher, mesa
+* **hit, took, saw, liked** = acertar, pegou, viu, gostou
 
 Para ser técnico, esta descrição é chamada de "gramática de estrutura de frase sem contexto", e o paradigma subjacente é
 chamado "sintaxe generativa".
@@ -64,10 +64,10 @@ A seguir, mostramos a derivação de uma única frase usando as regras:
   * A *Frase verbal* resultante é *"hit the ball"*
 * A *Sentença* resultante é *"The man hit the ball"*
 
-## 2.2 A Straightforward Solution
+## 2.2 Uma solução direta
 
-We will develop a program that generates random sentences from a phrase-structure grammar.
-The most straightforward approach is to represent each grammar rule by a separate Lisp function:
+Nós desenvolveremos um programa que gera sentenças aleatórias a partir de uma gramática de estrutura de frases.
+A abordagem mais direta é representar cada regra gramatical por uma função em Lisp separada:
 
 ```lisp
 (defun sentence ()    (append (noun-phrase) (verb-phrase)))
@@ -77,36 +77,42 @@ The most straightforward approach is to represent each grammar rule by a separat
 (defun Noun ()        (one-of '(man ball woman table)))
 (defun Verb ()        (one-of '(hit took saw liked)))
 ```
+Cada uma das definições de funções possui uma lista de parâmetros vazia, `()`.
+Isso significa que as funções não aceitam argumentos.
+Isso é incomum, porque, estritamente falando, uma função sem argumentos sempre retornaria a mesma coisa, portanto seria
+melhor o uso de uma constante.
+Contudo, essas funções usam a função `random` (como veremos em breve), e assim podem retornar resultados diferentes 
+mesmo sem argumentos.
+Entretanto, elas não são funções no sentindo matemático, mas elas ainda são chamadas de funções no Lisp, porque retornam
+um valor.
 
-Each of these function definitions has an empty parameter list, `()`.
-That means the functions take no arguments.
-This is unusual because, strictly speaking, a function with no arguments would always return the same thing, so we would use a constant instead.
-However, these functions make use of the `random` function (as we will see shortly), and thus can return different results even with no arguments.
-Thus, they are not functions in the mathematical sense, but they are still called functions in Lisp, because they return a value.
-
-All that remains now is to define the function `one-of`.
-It takes a list of possible choices as an argument, chooses one of these at random, and returns a one-element list of the element chosen.
-This last part is so that all functions in the grammar will return a list of words.
-That way, we can freely apply `append` to any category.
+Tudo o que resta agora é definir a função `one-of`.
+Ela aceita uma lista de opções possíveis como argumento, escolhe uma delas aleatoriamente e retorna uma lista com o elemento escolhido.
+Essa última parte é para que todas as funções da gramática retornem uma lista de palavras.
+Dessa maneira, nós podemos aplicar livremente `append` a qualquer categoria. 
 
 ```lisp
 (defun one-of (set)
-  "Pick one element of set, and make a list of it."
+  "Pick one element of set, and make a list of it.
+   pt-br: Escolhe um elemento do conjunto, e constrói uma lista com o mesmo."
   (list (random-elt set)))
 
 (defun random-elt (choices)
-  "Choose an element from a list at random."
+  "Choose an element from a list at random.
+   pt-br: Escolhe um elemnto da lista em aleatório."
   (elt choices (random (length choices))))
 ```
 
-There are two new functions here, `elt` and `random`.
-`elt` picks an element out of a list.
-The first argument is the list, and the second is the position in the list.
-The confusing part is that the positions start at 0, so `(elt choices 0)` is the first element of the list, and `(elt choices 1)` is the second.
-Think of the position numbers as telling you how far away you are from the front.
-The expression `(random n)` returns an integer from 0 to n-1, so that `(random 4)` would return either 0, 1, 2, or 3.
+Há duas novas funções aqui, `elt` e `random`.
+`elt` escolhe e retorna um elemento de uma lista.
+O primeiro argumento é a lista, e o segundo é a posição na lista.
+A parte confusa é que as posições começam em 0, então `(elt choices 0)` é o primeiro elemento da lista, 
+e `(elt choices 1)` é o segundo.
+Pense no número da posição como sendo sempre o próximo elemento da lista, então partindo do zero, 
+o zero é o primeiro elemento da lista, o um o segundo, o dois o terceiro, e assim por diante.
+A expressão `(random n)` retorna um número inteiro de 0 a n-1, então `(random 4)` deve retornar 0, 1, 2, ou 3.
 
-Now we can test the program by generating a few random sentences, along with a noun phrase and a verb phrase:
+Agora podemos testar o programa gerando algumas sentenças aleatórias, juntamente com uma frase substantiva e uma frase verbal:
 
 ```lisp
 > (sentence) => (THE WOMAN HIT THE BALL)
@@ -146,10 +152,12 @@ Now we can test the program by generating a few random sentences, along with a n
 (THE MAN HIT THE BALL)
 ```
 
-The program works fine, and the trace looks just like the sample derivation above, but the Lisp definitions are a bit harder to read than the original grammar rules.
-This problem will be compounded as we consider more complex rules.
-Suppose we wanted to allow noun phrases to be modified by an indefinite number of adjectives and an indefinite number of prepositional phrases.
-In grammatical notation, we might have the following rules:
+O programa funciona bem e o rastreamento se parece exatamente como a derivação mostrada anteriormente, mas as definições do Lisp 
+são um pouco mais difíceis de ler do que as regras gramaticais originais.
+Esse problema será agravado à medida que considerarmos regras mais complexas.
+Suponha que desejássemos permitir que as frases substantivas fossem modificadas por um número indefinido de adjetivos e um
+número indefinido de frases preposicionais.
+Na notação gramatical, podemos ter as seguintes regras:
 
 > *Noun-Phrase => Article + Adj\* + Noun + PP\*  
 > Adj\* => 0&#x0338;, Adj + Adj\*  
@@ -158,14 +166,16 @@ In grammatical notation, we might have the following rules:
 > Adj => big, little, blue, green, ...  
 > Prep => to, in, by, with, ...*
 
-In this notation, 0&#x0338; indicates a choice of nothing at all, a comma indicates a choice of several alternatives, and the asterisk is nothing special-as in Lisp, it's just part of the name of a symbol.
-However, the convention used here is that names ending in an asterisk denote zero or more repetitions of the underlying name.
-That is, *PP\** denotes zero or more repetitions of *PP*.
+Nessa notação, 0&#x0338; indica a escolha de nada, a vírgula indica a escolha de várias alternativas, e o asterisco não
+é nada em especial no Lisp, é apenas parte do nome do símbolo.
+No entanto, a convenção usada aqui é que nomes que terminam com um asterisco indicam zero ou mais repetições do nome
+subjacente.
+Isso é, *PP\** indica zero ou mais repetições de *PP*.
 <a id="tfn02-1"></a>
-This is known as "Kleene star" notation (pronounced "clean-E") after the mathematician Stephen Cole Kleene.[1](#fn02-1)
+Isso é conhecido como notação "Kleene star" (pronuncia-se "clean-E"), "Kleene" por conta do matemático Stephen Cole Kleene.
 
-The problem is that the rules for *Adj\** and *PP\** contain choices that we would have to represent as some kind of conditional in Lisp.
-For example:
+O problema é que as regras para *Adj\** e *PP\** contém opções que deveríamos representar como algum tipo de
+condicional no Lisp. Por exemplo:
 
 ```lisp
 (defun Adj* ()
@@ -184,23 +194,31 @@ For example:
 (defun Prep () (one-of '(to in by with on)))
 ```
 
-I've chosen two different implementations for `Adj*` and `PP*`; either approach would work in either function.
-We have to be careful, though; here are two approaches that would not work:
+Eu escolhi duas implementações diferentes para `Adj*` e `PP*`; qualquer abordagem funcionaria em qualquer função.
+No entanto, temos que ter cuidado; aqui estão duas abordagens que não funcionariam:
 
 ```lisp
 (defun Adj* ()
-  "Warning - incorrect definition of Adjectives."
+  "Warning - incorrect definition of Adjectives.
+   pt-br: Aviso - definição incorreta de adjetivos."
   (one-of '(nil (append (Adj) (Adj*)))))
 (defun Adj* ()
-  "Warning - incorrect definition of Adjectives."
+  "Warning - incorrect definition of Adjectives.
+   pt-br: Aviso - definição incorreta de adjetivos."
   (one-of (list nil (append (Adj) (Adj*)))))
 ```
 
-The first definition is wrong because it could return the literal expression `((append (Adj) (Adj*)))` rather than a list of words as expected.
-The second definition would cause infinite recursion, because computing the value of `(Adj*)` always involves a recursive call to `(Adj*)`.
-The point is that what started out as simple functions are now becoming quite complex.
-To understand them, we need to know many Lisp conventions-`defun, (), case, if`, `quote`, and the rules for order of evaluation-when ideally the implementation of a grammar rule should use only *linguistic* conventions.
-If we wanted to develop a larger grammar, the problem could get worse, because the rule-writer might have to depend more and more on Lisp.
+A primeira definição é errada porque retornaria a expressão literal 
+`((append (Adj) (Adj*)))` enquanto o esperado é uma lista de palavras.
+A segunda definição causaria uma recursão infinita, porque computando o valor de 
+`(Adj*)` sempre envolve uma chamada recursiva para `(Adj*)`. 
+O ponto é que o que começou como funções simples agora está se tornando bastante complexo.
+Pra entendê-las, precisamos de saber muitas convenções do Lisp como: 
+`defun, (), case, if`, `quote`, e as regras para a ordem da avaliação, 
+quando, idealmente, a implementação de uma regra gramatical deve usar apenas 
+convenções *linguísticas*.
+Se quiséssemos desenvolver uma gramática maior, o problema poderia piorar, porque o 
+escritor de regras pode precisar depender cada vez mais do Lisp.
 
 ## 2.3 A Rule-Based Solution
 
@@ -581,4 +599,4 @@ Now we can use the `cross-product` in other ways as well:
 
 ----------------------
 <a id="fn02-1"></a>
-[1](#tfn02-1) We will soon see "Kleene plus" notation, wherein *PP+* denotes one or more repetition of *PP*.
+[1](#tfn02-1) Em breve, veremos a notação "Kleene plus", em que *PP+* indica uma ou mais repetições de *PP*.
