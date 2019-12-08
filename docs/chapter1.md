@@ -389,7 +389,7 @@ Abaixo é usado para definir uma nova função chamada `last-name`:
 
 ```lisp
 (defun last-name (name)
-  "Select the last name from a name represented as a list."
+  "Retorna o sobrenome de um nome representado como uma lista."
   (first (last name)))
 ```
 
@@ -446,7 +446,7 @@ estamos usando `first` para referir a nomes, deixando outros usos de `first` em 
 
 ```lisp 
 (defun first-name (name)
-  "Select the first name from a name represented as a list."
+  "Retorna o primeiro nome de um nome representado como uma lista."
   (first name))
 
 > p => (JOHN Q PUBLIC)`
@@ -533,7 +533,7 @@ Poderíamos proceder da seguinte maneira:
 ```lisp
 (defparameter *titles*
   '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)
-  "A list of titles that can appear at the start of a name.")
+  "Uma lista de títulos que podem aparecer no início de um nome.")
 ```
 
 Introduzimos outro novo formulário especial, `defparameter`, qual define um parâmetro, um parâmetro aqui é uma variável 
@@ -573,7 +573,7 @@ Embora todos não-nulos valores são considerados verdadeiros, por convenção a
 
 ```lisp
 (defun first-name (name)
-  "Select the first name from a name represented as a list."
+  "Retorna o primeiro nome de um nome representado como uma lista."
   (if (member (first name) *titles*)
       (first-name (rest name))
       (first name)))
@@ -651,9 +651,9 @@ recursivas não estão vinculadas ao Lisp de alguma forma:
 
 ```lisp
 function first-name(name):
-  if *the first element of name is a title*
-    then *do something complicated to get the first-name*
-    else *return the first element of the name*
+  Se *O primeiro elemento do nome é um título*
+    então *faça alguma coisa complicada para obter o primeiro nome*
+    senão *retorne o primeiro elemento do nome*
 ```
 
 Isso divide o problema em dois casos.
@@ -666,9 +666,9 @@ O pulo de gato é ir a frente e usar `first-name`, mesmo que ainda não tenha si
 
 ```lisp
 function first-name(name):
-  if *the first element of name is a title*
-    then *return the* first-name *of the rest of the name*
-    else *return the first element of the name*
+  Se *O primeiro elemento do nome é um título*
+    então *retorne o primeiro nome (ou seja, a função first-name) do resto do nome*
+    senão *retorne o primeiro elemento do nome*
 ```
 
 Agora o primeiro caso em `first-name` é recursivo, e o segundo caso permanece inalterado.
@@ -696,7 +696,7 @@ função a uma lista de argumentos.
 
 ```lisp
 (defun mappend (fn the-list)
-  "Apply fn to each element of list and append the results."
+  "Aplique fn a cada elemento da lista e adicione os resultados."
   (apply #'append (mapcar fn the-list)))
 ```
 
@@ -748,11 +748,11 @@ Este problema pode ser resolvido facilmente usando `mappend` como um componente:
 
 ```lisp
 (defun numbers-and-negations (input)
-  "Given a list, return only the numbers and their negations."
+  "Dada uma lista, retorne apenas os números e suas negações."
   (mappend #'number-and-negation input))
 
 (defun number-and-negation (x)
-  "If x is a number, return a list of x and -x."
+  "Se x é um número, retorne uma lista de x e -x."
   (if (numberp x)
       (list x (- x))
       nil))
@@ -765,7 +765,7 @@ o conceito de recursão para aplicar-se a um elemento de cada vez:
 
 ```lisp
 (defun mappend (fn the-list)
-  "Apply fn to each element of list and append the results."
+  "Aplique fn a cada elemento da lista e adicione os resultados."
   (if (null the-list)
       nil
       (append (funcall fn (first the-list))
@@ -1236,7 +1236,7 @@ Com nossa visão moderna (e editores de texto que recuam automaticamente), é po
 
 ```lisp
 (defun atomprint (exp &optional (depth 0))
-  "Print each atom in exp, along with its depth of nesting."
+  "Imprima cada átomo em exp, juntamente com sua profundidade de aninhamento."
   (if (atom exp)
       (format t "~&ATOM: ~a, DEPTH ~d" exp depth)
       (dolist (element exp)
@@ -1281,10 +1281,10 @@ assim como Norvig fez na sua versão de `last-name`.
 ```lisp
 (defvar *titles*
   '(Mr Mrs Miss Ms Sir MD Jr Madam Dr Admiral Major General)
-  "A list of titles that can appear at the start of a name.")
+  "Uma lista de títulos que podem aparecer no início de um nome.")
 
 (defun last-name (fullname)
-  "Return lastname for fullname excluding when they are titles.
+  "Retorne o sobrenome para o nome completo, exceto quando forem títulos.
    Examples: (last-name '(Morton Downey Jr)) => Downey
              (last-name '(Rex Morgan MD)) => Morgan
              (last-name '(MD Jr)) => NIL"
@@ -1299,8 +1299,8 @@ assim como Norvig fez na sua versão de `last-name`.
 
 ```lisp
 (defun power (x n)
-  "Power raises x to the nth power.  N must be an integer >= 0.
-   This executes in log n time, because of the check for even n."
+  "Power eleva x à enésima potência. N deve ser um número inteiro >= 0. 
+   Isso é executado no tempo log(n), devido à verificação do n mesmo."
   (cond ((= n 0) 1)
         ((evenp n) (expt (power x (/ n 2)) 2))
         (t (* x (power x (- n 1))))))
@@ -1310,15 +1310,15 @@ assim como Norvig fez na sua versão de `last-name`.
 
 ```lisp
 (defun count-atoms (exp)
-  "Return the total number of non-nil atoms in the expression."
+  "Retorne o número total de átomos diferentes de nil na expressão."
   (cond ((null exp) 0)
         ((atom exp) 1)
         (t (+ (count-atoms (first exp))
               (count-atoms (rest exp))))))
 
 (defun count-all-atoms (exp &optional (if-null 1))
-  "Return the total number of atoms in the expression,
-  counting nil as an atom only in non-tail position."
+  "Retorna o número total de átomos na expressão, 
+   contando nil como um átomo apenas na posição não cauda."
   (cond ((null exp) if-null)
         ((atom exp) 1)
         (t (+ (count-all-atoms (first exp) 1)
@@ -1329,7 +1329,7 @@ assim como Norvig fez na sua versão de `last-name`.
 
 ```lisp
 (defun count-anywhere (item tree)
-  "Count the times item appears anywhere within tree."
+  "Contar as vezes que o item aparece em qualquer lugar da árvore."
   (cond ((eql item tree) 1)
         ((atom tree) 0)
         (t (+ (count-anywhere item (first tree))
@@ -1342,21 +1342,21 @@ Aqui estão três versões:
 
 ```lisp
 (defun dot-product (a b)
-  "Compute the mathematical dot product of two vectors."
+  "Calcule o produto escalar matemático de dois vetores."
   (if (or (null a) (null b))
       0
       (+ (* (first a) (first b))
          (dot-product (rest a) (rest b)))))
 
 (defun dot-product (a b)
-  "Compute the mathematical dot product of two vectors."
+  "Calcule o produto escalar matemático de dois vetores."
   (let ((sum 0))
     (dotimes (i (length a))
       (incf sum (* (elt a i) (elt b i))))
     sum))
 
 (defun dot-product (a b)
-  "Compute the mathematical dot product of two vectors."
+  "Calcule o produto escalar matemático de dois vetores."
   (apply #'+ (mapcar #'* a b)))
 ```
 
