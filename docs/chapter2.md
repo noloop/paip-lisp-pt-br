@@ -93,13 +93,11 @@ Dessa maneira, nós podemos aplicar livremente `append` a qualquer categoria.
 
 ```lisp
 (defun one-of (set)
-  "Pick one element of set, and make a list of it.
-   pt-br: Escolhe um elemento do conjunto, e constrói uma lista com o mesmo."
+  "Escolhe um elemento do conjunto, e constrói uma lista com o mesmo."
   (list (random-elt set)))
 
 (defun random-elt (choices)
-  "Choose an element from a list at random.
-   pt-br: Escolhe um elemnto da lista em aleatório."
+  "Escolhe um elemnto da lista em aleatório."
   (elt choices (random (length choices))))
 ```
 
@@ -220,10 +218,11 @@ convenções *linguísticas*.
 Se quiséssemos desenvolver uma gramática maior, o problema poderia piorar, porque o 
 escritor de regras pode precisar depender cada vez mais do Lisp.
 
-## 2.3 A Rule-Based Solution
+## 2.3 Uma solução baseada em regras
 
-An alternative implementation of this program would concentrate on making it easy to write grammar rules and would worry later about how they will be processed.
-Let's look again at the original grammar rules:
+Uma implementação alternativa desse programa se concentraria em facilitar a escrita de regras gramaticais e 
+deixaria a preocupação com o modo como elas serão processadas para depois.
+Vejamos de novo as regras gramaticais originais:
 
 > *Sentence => Noun-Phrase + Verb-Phrase  
 > Noun-Phrase => Article + Noun  
@@ -232,10 +231,13 @@ Let's look again at the original grammar rules:
 > Noun => man, ball, woman, table...  
 > Verb => hit, took, saw, liked...*
 
-Each rule consists of an arrow with a symbol on the left-hand side and something on the right-hand side.
-The complication is that there can be two kinds of right-hand sides: a concatenated list of symbols, as in "*Noun-Phrase => Article+Noun*," or a list of alternate words, as in "*Noun => man, ball, ...*"
-We can account for these possibilities by deciding that every rule will have a list of possibilities on the right-hand side, and that a concatenated list, *for example "Article+Noun,"* will be represented as a Lisp list, *for example* "(`Article Noun`)".
-The list of rules can then be represented as follows:
+Cada regra consiste de uma seta com um símbolo do lado esquerdo e alguma outra coisa do lado direito.
+A complicação é que podem ser dois tipos de lados direito: uma lista concatenada de símbolos, como em
+"*Noun-Phrase => Article + Noun*", ou uma lista de palavras alternativas, como em "*Noun => man, ball, woman, table...*"
+Podemos considerar essas possibilidades, decidindo que todas as regras terão uma lista de possibilidades no
+lado direito, e que uma lista concatenada, for example "*Article + Noun*" será representada como uma lista em Lisp,
+por exemplo, `(Article Noun)`.
+A lista de regras pode ser representada da seguinte maneira:
 
 ```lisp
 (defparameter *simple-grammar*
@@ -245,64 +247,76 @@ The list of rules can then be represented as follows:
     (Article -> the a)
     (Noun -> man ball woman table)
     (Verb -> hit took saw liked))
-  "A grammar for a trivial subset of English.")
+  "Uma gramática para um subconjunto trivial de inglês.")
 
 (defvar *grammar* *simple-grammar*
-  "The grammar used by generate.  Initially, this is
-  *simple-grammar*, but we can switch to other grammars.")
+  "A gramática utilizada por generate. Inicialmente é
+  *simple-grammar*, mas podemos mudar para outas gramáticas.")
 ```
 
-Note that the Lisp version of the rules closely mimics the original version.
-In particular, I include the symbol "->", even though it serves no real purpose; it is purely decorative.
+Note que a versão do Lisp das regras imita a versão original.
+Em particular, incluo o símbolo "->", mesmo que não sirva a nenhum propósito real; é puramente decorativo.
 
-The special forms `defvar` and `defparameter` both introduce special variables and assign a value to them; the difference is that a *variable*, like `*grammar*,` is routinely changed during the course of running the program.
-A *parameter*, like `*simple-grammar*`, on the other hand, will normally stay constant.
-A change to a parameter is considered a change *to* the program, not a change *by* the program.
+Ambos os formulários especiais `defvar` e `defparameter` introduzem variáveis especiais e atribuem um valor a elas; a
+diferença é que uma *variável*, como `*grammar*`, é frequentemente alterada durante a execução do programa.
+Um *parâmetro*, como `*simple-grammar*`, por outro lado, irá normalmente permanecerá constante.
+Uma alteração de um parâmetro é considerada uma alteração *no* programa, não uma alteração *pelo* programa. 
 
-Once the list of rules has been defined, it can be used to find the possible rewrites of a given category symbol.
-The function `assoc` is designed for just this sort of task.
-It takes two arguments, a "key" and a list of lists, and returns the first element of the list of lists that starts with the key.
-If there is none, it returns `nil`.
-Here is an example:
+Uma vez que a lista de regras foi definida, ela pode ser usada para buscar reescritas possíveis de um determinado 
+símbolo de categoria.
+A função `assoc` é designada para esse tipo de tarefa.
+Ela aceita dois argumentos, uma "chave" e uma lista de listas, e retorna o primeiro elemento da lista de listas que
+começar com a chave.
+Se não houver, ela retorna `nil`.
+Aqui está um exemplo:
 
 ```lisp
 > (assoc 'noun *grammar*) => (NOUN -> MAN BALL WOMAN TABLE)
 ```
 
-Although rules are quite simply implemented as lists, it is a good idea to impose a layer of abstraction by defining functions to operate on the rules.
-We will need three functions: one to get the right-hand side of a rule, one for the left-hand side, and one to look up all the possible rewrites (right-hand sides) for a category.
+Embora as regras sejam simplesmente implementadas como listas, é uma boa idéia impor uma camada de abstração definindo
+funções para operar com as regras.
+Precisaremos de três funções: uma para obter o lado direito de uma regra, uma para o lado esquerdo, e uma para procurar
+todas as possíveis reescritas (dos lados direitos) de uma categoria.
 
 ```lisp
 (defun rule-lhs (rule)
-  "The left hand side of a rule."
+  "O lado esquerdo de uma regra."
   (first rule))
 
 (defun rule-rhs (rule)
-  "The right hand side of a rule."
+  "O lado direito de uma regra."
   (rest (rest rule)))
 
 (defun rewrites (category)
-  "Return a list of the possible rewrites for this category."
+  "Retorne uma lista das possíveis reescritas para esta categoria."
   (rule-rhs (assoc category *grammar*)))
 ```
 
-Defining these functions will make it easier to read the programs that use them, and it also makes changing the representation of rules easier, should we ever decide to do so.
+Definir essas funções facilitará a leitura dos programas que a utilizam, e também 
+e também facilita a alteração da representação das regras, se decidirmos mudá-la.
 
-We are now ready to address the main problem: defining a function that will generate sentences (or noun phrases, or any other category).
-We will call this function `generate`.
-It will have to contend with three cases:
-(1) In the simplest case, `generate` is passed a symbol that has a set of rewrite rules associated with it.
-We choose one of those at random, and then generate from that.
-(2) If the symbol has no possible rewrite rules, it must be a terminal symbol-a word, rather than a grammatical category-and we want to leave it alone.
-Actually, we return the list of the input word, because, as in the previous program, we want all results to be lists of words.
-(3) In some cases, when the symbol has rewrites, we will pick one that is a list of symbols, and try to generate from that.
-Thus, `generate` must also accept a list as input, in which case it should generate each element of the list, and then append them all together.
-In the following, the first clause in `generate` handles this case, while the second clause handles (1) and the third handles (2).
-Note that we used the `mappend` function from section 1.7 (page 18).
+Estamos agora prontos para resolver o problema principal: definir uma função que gere sentenças (ou frases
+substantivas ou qualquer outra categoria).
+Iremos chamar essa função de `generate`.
+Ela terá que lidar com três casos:
+(1) No caso mais simples, `generate` recebe um símbolo que possui um conjunto de regras de reescrita associadas a ele.
+Nós escolhemos um deles aleatoriamente e depois geramos a partir disso.
+(2) Se o símbolo não tem regras de reescrita possíveis, ele deve ser um símbolo terminal, qual é uma palavra, e não uma
+categoria gramatical, e queremos deixá-lo em paz.
+Na verdade, retornamos uma lista com a palavra de entrada, porque, como no programa anterior, queremos que todos os
+resultados sejam listas de palavras.
+(3) Em alguns casos, quando o símbolo tem reescritas, escolheremos um que seja uma lista de símbolos, e tentamos gerar a
+partir disso.
+Portanto, `generate` deve também aceitar uma lista como entrada, nessa caso, deve gerar cada elemento da lista, e em
+seguida anexá-los todos juntos.
+A seguir, a primeira condição em `generate` lida com esse caso, enquanto a segunda lida com o caso (1) e a terceira lida
+com o caso (2). 
+Observe que usamos a função `mappend` da seção 1.7 (page 18).
 
 ```lisp
 (defun generate (phrase)
-  "Generate a random sentence or phrase"
+  "Gere uma sentença ou frase aleatória."
   (cond ((listp phrase)
          (mappend #'generate phrase))
         ((rewrites phrase)
@@ -310,12 +324,15 @@ Note that we used the `mappend` function from section 1.7 (page 18).
         (t (list phrase))))
 ```
 
-Like many of the programs in this book, this function is short, but dense with information: the craft of programming includes knowing what *not* to write, as well as what to write.
+Como muitos dos programas deste livro, essa função é curta, mas densa de informações: o ofício da programação inclui
+sabe o que *não* escrever, bem como o que escrever.
 
-This style of programming is called *data-driven* programming, because the data (the list of rewrites associated with a category) drives what the program does next.
-It is a natural and easy-to-use style in Lisp, leading to concise and extensible programs, because it is always possible to add a new piece of data with a new association without having to modify the original program.
+Esse estilo de programação é chamado programação *orientado a dados*, porque os dados (a lista de reescritas associadas
+com uma categoria) direcionam o que o programa faz a seguir.
+É um estilo natural e fácil de usar no Lisp, levando programas concisos e extensíveis, porque sempre é possível
+adicionar um novo dado com uma nova associação sem precisar modificar o programa original.
 
-Here are some examples of `generate` in use:
+Aqui está alguns exemplos de uso de `generate`:
 
 ```lisp
 > (generate 'sentence) => (THE TABLE SAW THE BALL)
@@ -327,8 +344,8 @@ Here are some examples of `generate` in use:
 > (generate 'verb-phrase) (TOOK A TABLE)
 ```
 
-There are many possible ways to write `generate`.
-The following version uses `if` instead of `cond`:
+Há muitas possíveis maneiras de escrever `generate`.
+A seguir uma versão usando `if` ao invés de `cond`:
 
 ```lisp
 (defun generate (phrase)
@@ -341,30 +358,33 @@ The following version uses `if` instead of `cond`:
             (generate (random-elt choices))))))
 ```
 
-This version uses the special form `let`, which introduces a new variable (in this case, `choices`) and also binds the variable to a value.
-In this case, introducing the variable saves us from calling the function `rewrites` twice, as was done in the `cond` version of `generate`.
-The general form of a `let` form is:
+Esta versão usa o formulário especial `let`, qual introduz uma nova variável (nesse caso, `choices`) e também liga a variável a um valor.
+Neste caso, a introdução da variável nos evita de chamar a função `rewrites` duas vezes, como foi feito na versão `cond`
+de `generate`.
+O fomulários geral de um `let` é:
 
 ```lisp
     `(let` ((*var value*)...)
         *body-containing-vars*)
 ```
 
-`let` is the most common way of introducing variables that are not parameters of functions.
-One must resist the temptation to use a variable without introducing it:
+`let` é a maneira mais comum de introduzir variáveis que não são parâmetros de funções.
+É preciso resistir à tentação de usar uma variável sem introduzi-la:
 
 ```lisp
 (defun generate (phrase)
-  (setf choices ...)         ;; wrong!
+  (setf choices ...)         ;; errado!
   ... choices ...)
 ```
-This is wrong because the symbol `choices` now refers to a special or global variable, one that may be shared or changed by other functions.
-Thus, the function `generate` is not reliable, because there is no guarantee that `choices` will retain the same value from the time it is set to the time it is referenced again.
-With `let` we introduce a brand new variable that nobody else can access; therefore it is guaranteed to maintain the proper value.
+Isso é errado porque o símbolo `choices` agora está se referindo a uma variável especial ou global, que pode ser compartilhada ou alterada por outras funções.
+Portanto, a função `generate` não é confiável, porque não há garantia que `choices` irá manter o mesmo valor desde o momento em que é definida até o momento em que é referenciada novamente.
 
-&#9635; **Exercise  2.1 [m]** Write a version of `generate` that uses `cond` but avoids calling `rewrites` twice.
+Com `let` nós introduzimos uma variável nova que ninguém mais pode acessar; portanto, é garantido manter o valor adequado.
 
-&#9635; **Exercise  2.2 [m]** Write a version of `generate` that explicitly differentiates between terminal symbols (those with no rewrite rules) and nonterminal symbols.
+&#9635; **Exercício 2.1 [m]** Escreva uma versão de `generate`que use `cond` mas sem chamar `rewrites` duas vezes.
+
+&#9635; **Exercício 2.2 [m]** Escreva uma versão de `generate` que diferencia explicitamente entre símbolos terminais
+(aqueles sem regras de reescrita) e símbolos não terminais.
 
 ## 2.4 Two Paths to Follow
 
@@ -537,7 +557,7 @@ The moral is to make your code as general as possible, because you never know wh
 
 ```lisp
   (defun generate (phrase)
-  "Generate a random sentence or phrase"
+  "Gere uma sentença ou frase aleatória."
   (let ((choices nil))
     (cond ((listp phrase)
         (mappend #'generate phrase))
@@ -550,7 +570,7 @@ The moral is to make your code as general as possible, because you never know wh
 
 ```lisp
 (defun generate (phrase)
-  "Generate a random sentence or phrase"
+  "Gere uma sentença ou frase aleatória."
   (cond ((listp phrase)
          (mappend #'generate phrase))
         ((non-terminal-p phrase)
@@ -558,7 +578,7 @@ The moral is to make your code as general as possible, because you never know wh
         (t (list phrase))))
 
 (defun non-terminal-p (category)
-  "True if this is a category in the grammar."
+  "Verdadeiro se essa for uma categoria na gramática."
   (not (null (rewrites category))))
 ```
 
@@ -600,3 +620,4 @@ Now we can use the `cross-product` in other ways as well:
 ----------------------
 <a id="fn02-1"></a>
 [1](#tfn02-1) Em breve, veremos a notação "Kleene plus", em que *PP+* indica uma ou mais repetições de *PP*.
+	
