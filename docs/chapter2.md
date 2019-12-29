@@ -386,26 +386,32 @@ Com `let` nós introduzimos uma variável nova que ninguém mais pode acessar; p
 &#9635; **Exercício 2.2 [m]** Escreva uma versão de `generate` que diferencia explicitamente entre símbolos terminais
 (aqueles sem regras de reescrita) e símbolos não terminais.
 
-## 2.4 Two Paths to Follow
+## 2.4 Dois caminhos a seguir
 
-The two versions of the preceding program represent two alternate approaches that come up time and time again in developing programs: (1) Use the most straightforward mapping of the problem description directly into Lisp code.
-(2) Use the most natural notation available to solve the problem, and then worry about writing an interpreter for that notation.
+As duas versões dos programas precedentes representam duas abordagens alternativas que surgem repentinamente no
+desenvolvimento de programas:
+(1) Use o mapeamento mais direto da descrição do problema diretamente no código Lisp. 
+(2) Use a notação mais natural disponível para resolver o problema e depois se preocupe em escrever um 
+intérprete para essa notação.
 
-Approach (2) involves an extra step, and thus is more work for small problems.
-However, programs that use this approach are often easier to modify and expand.
-This is especially true in a domain where there is a lot of data to account for.
-The grammar of natural language is one such domain-in fact, most AI problems fit this description.
-The idea behind approach (2) is to work with the problem as much as possible in its own terms, and to minimize the part of the solution that is written directly in Lisp.
+A abordagem (2) envolve um passo extra, e assim é mais trabalho para pequenos problemas.
+No entanto, programas que usam esta abordagem geralmente são mais fácies de modificar e expandir.
+Isso é especialmente verdade em um domínio em que há muitos dados para contabilizar.
+A gramática da linguagem natural é um desses domínios, na verdade, a maioria dos problemas 
+de IA se encaixa nessa descrição.
+A ideia por trás  da abordagem (2) é trabalhar com o problema o máximo possível em seus próprios termos,
+e minimizar a parte da solução escrita diretamente no Lisp.
 
-Fortunately, it is very easy in Lisp to design new notations-in effect, new programming languages.
-Thus, Lisp encourages the construction of more robust programs.
-Throughout this book, we will be aware of the two approaches.
-The reader may notice that in most cases, we choose the second.
+Felizmente, é muito fácil no Lisp projetar novas notações, e por efeito, novas linguagens de programação. 
+Assim, Lisp encoraja a construção de programas mais robustos.
+Ao longo desse livro, estaremos cientes das duas abordagens.
+O leitor pode perceber que, na maioria dos casos, escolhemos o segundo.
 
-## 2.5 Changing the Grammar without Changing the Program
+## 2.5 Alterando a gramática sem alterar o programa
 
-We show the utility of approach (2) by defining a new grammar that includes adjectives, prepositional phrases, proper names, and pronouns.
-We can then apply the `generate` function without modification to this new grammar.
+Mostramos a utilidade da abordagem (2) definindo uma nova gramática que inclui adjetivos, frases preposicionais, nomes próprios, e pronomes.
+Nós podemos então aplicar a função `generate` sem modificações a esta nova gramática. 
+
 
 ```lisp
 (defparameter *bigger-grammar*
@@ -438,8 +444,9 @@ We can then apply the `generate` function without modification to this new gramm
 (THE GREEN TABLE HIT IT WITH HE)
 ```
 
-Notice the problem with case agreement for pronouns: the program generated "with he," although "with him" is the proper grammatical form.
-Also, it is clear that the program does not distinguish sensible from silly output.
+Observe o problema de concordância de casos para pronomes:
+o programa gerou "with he", embora "with him" seja a forma gramatical correta.
+Além disso, é claro que o programa não distingue a produção sensata da tola.
 
 ## 2.6 Using the Same Data for Several Programs
 
